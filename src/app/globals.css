@@ -24,3 +24,272 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* ================================================================
+   Mem Connects - Custom Stylesheet
+   Version: 2.0 (Rebranded)
+   Primary Color: #6D5795 (Purple)
+   Heading Color: #F2852C (Orange)
+================================================================ */
+
+/* --- 1. Font Definitions & Basic Styles --- */
+:root {
+  --theme-primary: #6d5795; /* Main button and action color (Purple) */
+  --theme-primary-dark: #59457a; /* Darker purple for hover states */
+  --heading-color: #f2852c; /* Heading text color (Orange) */
+  --heading-color-dark: #d9721b; /* Darker orange for gradients */
+  --theme-light-bg: #f3f0f7; /* A very light purple for backgrounds */
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafc;
+  scroll-behavior: smooth;
+  color: #374151; /* gray-700 */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+  color: #1f2937; /* gray-800 */
+}
+
+/* --- 2. Premium Form Input Styles --- */
+.form-input-premium {
+  width: 100%;
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: 0.875rem;
+  background-color: #f9fafb; /* bg-gray-50 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: all 0.2s ease-in-out;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+.form-input-premium:focus {
+  outline: none;
+  background-color: white;
+  border-color: var(--theme-primary); /* Uses new purple color */
+  box-shadow: 0 0 0 3px rgba(109, 87, 149, 0.2), 0 1px 2px 0 rgb(0 0 0 / 0.05); /* Updated focus shadow */
+  transform: translateY(-1px);
+}
+
+.form-upload-premium {
+  width: 100%;
+  font-size: 0.875rem;
+  color: #6b7280;
+  cursor: pointer;
+}
+.form-upload-premium::file-selector-button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border-width: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background-color: #e9e4f0; /* light-purple */
+  color: var(--theme-primary-dark); /* dark-purple */
+  transition: background-color 0.2s;
+}
+.form-upload-premium::file-selector-button:hover {
+  background-color: #dcd6e6; /* a bit darker purple */
+}
+
+/* --- 3. Custom Backgrounds & Gradients --- */
+.hero-bg {
+  background-color: var(--theme-light-bg); /* Updated to light purple */
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--heading-color),
+    var(--heading-color-dark)
+  ); /* Orange gradient for headings */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page-header-bg {
+  background: linear-gradient(
+    135deg,
+    #a796c5,
+    var(--theme-primary)
+  ); /* Light purple to main purple */
+}
+
+.trusted-section-bg {
+  background: linear-gradient(
+    125deg,
+    var(--theme-primary),
+    var(--theme-primary-dark) 80%
+  ); /* Purple gradient */
+}
+
+.cta-gradient-bg {
+  background: linear-gradient(
+    125deg,
+    #8e79b4,
+    var(--theme-primary),
+    var(--theme-primary-dark)
+  ); /* Purple gradient for CTA */
+}
+
+/* --- 4. Animation Keyframes --- */
+@keyframes breathing {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- 5. Animation Utility Classes --- */
+.animate-breathing {
+  animation: breathing 2.5s ease-in-out infinite;
+}
+
+.floating-card {
+  animation: float 4s ease-in-out infinite;
+}
+
+.floating-card-2 {
+  animation: float2 5s ease-in-out infinite;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 1s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 1s ease-out forwards;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* NOTE: This general shadow might affect all buttons. 
+  It's better to use specific classes for form buttons if needed.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  box-shadow: 3px 3px 8px #6d579540; /* Updated to purple shadow */
+}
+
+/* NOTE: Overriding a core Tailwind class with !important is not recommended.
+  This rule has been commented out. If you need a red border, 
+  create a new utility class like .border-red-custom { border-color: red; }
+*/
+/*
+.border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(230, 0, 0) !important;
+}
+*/
+
+/* --- Feature Section Styles --- */
+.feature-box {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem; /* 20px */
+  border-radius: 0.75rem; /* 12px */
+  gap: 1rem; /* 16px */
+  transition: all 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05),
+    0 4px 6px -4px rgb(0 0 0 / 0.05);
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px; /* 3rem */
+  height: 48px; /* 3rem */
+  border-radius: 9999px; /* rounded-full */
+}
+
+.icon-wrapper i {
+  font-size: 1.25rem; /* 20px */
+}
+
+.feature-gradient-text {
+  background: linear-gradient(90deg, #f2852c, #d9721b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
