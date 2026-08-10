@@ -1,4 +1,24 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: "Roboto", sans-serif;
+    background-color: #f8fafc;
+    scroll-behavior: smooth;
+    color: #374151; /* gray-700 */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", serif;
+    color: #1f2937; /* gray-800 */
+  }
+}
+
 /* ================================================================
    Mem Connects - Custom Stylesheet
    Version: 2.0 (Rebranded)
@@ -9,6 +29,15 @@
 /* --- 1. Font Definitions & Basic Styles --- */
 :root {
   --theme-primary: #6d5795; /* Main button and action color (Purple) */
+  --theme-primary-dark: #59457a; /* Darker purple for hover states */
+  --heading-color: #f2852c; /* Heading text color (Orange) */
+  --heading-color-dark: #d9721b; /* Darker orange for gradients */
+  --theme-light-bg: #f3f0f7; /* A very light purple for backgrounds */
+}
+
+/* --- 2. Premium Form Input Styles --- */
+.form-input-premium {
+  width: 100%;
   padding: 0.75rem 1rem; /* 12px 16px */
   font-size: 0.875rem;
   background-color: #f9fafb; /* bg-gray-50 */
@@ -148,97 +177,166 @@
 .animate-breathing {
   animation: breathing 2.5s ease-in-out infinite;
 }
-
-.floating-card {
+.animate-float {
   animation: float 4s ease-in-out infinite;
 }
-
-.floating-card-2 {
-  animation: float2 5s ease-in-out infinite;
+.animate-float-delayed {
+  animation: float2 3s ease-in-out infinite 1.5s;
 }
-
 .animate-fade-in-left {
   animation: fadeInLeft 1s ease-out forwards;
 }
-
 .animate-fade-in-right {
   animation: fadeInRight 1s ease-out forwards;
 }
 
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in-up.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* NOTE: This general shadow might affect all buttons. 
-  It's better to use specific classes for form buttons if needed.
-*/
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: inherit;
-  font-feature-settings: inherit;
-  font-variation-settings: inherit;
-  font-size: 100%;
-  font-weight: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-  margin: 0;
-  padding: 0;
-  box-shadow: 3px 3px 8px #6d579540; /* Updated to purple shadow */
-}
-
-/* NOTE: Overriding a core Tailwind class with !important is not recommended.
-  This rule has been commented out. If you need a red border, 
-  create a new utility class like .border-red-custom { border-color: red; }
-*/
-/*
-.border-gray-300 {
-  --tw-border-opacity: 1;
-  border-color: rgb(230, 0, 0) !important;
-}
-*/
-
-/* --- Feature Section Styles --- */
-.feature-box {
-  display: flex;
-  align-items: center;
-  padding: 1.25rem; /* 20px */
-  border-radius: 0.75rem; /* 12px */
-  gap: 1rem; /* 16px */
-  transition: all 0.3s ease;
-}
-
-.feature-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05),
-    0 4px 6px -4px rgb(0 0 0 / 0.05);
-}
-
+/* --- 6. Specific Components --- */
 .icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px; /* 3rem */
-  height: 48px; /* 3rem */
-  border-radius: 9999px; /* rounded-full */
+  margin-bottom: 0.75rem;
+}
+.icon-wrapper i {
+  font-size: 1.25rem;
 }
 
-.icon-wrapper i {
-  font-size: 1.25rem; /* 20px */
+.feature-box {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: rgba(229, 231, 235, 1);
 }
 
 .feature-gradient-text {
-  background: linear-gradient(90deg, #f2852c, #d9721b);
+  background: linear-gradient(
+    90deg,
+    var(--theme-primary),
+    var(--heading-color)
+  ); /* Purple to Orange gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.feature-icon-wrapper {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Application Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+.status-pending {
+  color: #856404;
+  background-color: #fff3cd;
+}
+.status-processing {
+  color: #004085;
+  background-color: #cce5ff;
+}
+.status-approved {
+  color: #155724;
+  background-color: #d4edda;
+}
+.status-rejected {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+/* Toast Notification Styles */
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.toast-message {
+  background-color: white;
+  border-left: 5px solid #48bb78; /* Default success green */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 16px 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  animation: slideInRight 0.3s ease-out forwards;
+  position: relative;
+}
+.toast-message.success {
+  border-left-color: #48bb78;
+}
+.toast-message.error,
+.toast-message.danger {
+  border-left-color: #f56565;
+}
+.toast-message.info {
+  border-left-color: #4299e1;
+}
+.toast-message.warning {
+  border-left-color: #ed8936;
+}
+.toast-close {
+  cursor: pointer;
+  color: #a0aec0;
+  transition: color 0.2s;
+  margin-left: 15px;
+}
+.toast-close:hover {
+  color: #4a5568;
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+.toast-message.hiding {
+  animation: fadeOutRight 0.3s ease-in forwards;
 }

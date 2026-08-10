@@ -82,38 +82,38 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
-                    <input type="text" name="contact_name" id="contact_name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" required />
+                    <input type="text" name="contact_name" id="contact_name" className="form-input-premium" required />
                   </div>
                   <div>
                     <label htmlFor="contact_email" className="block text-sm font-medium text-gray-700 mb-2">Your Email</label>
-                    <input type="email" name="contact_email" id="contact_email" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" required />
+                    <input type="email" name="contact_email" id="contact_email" className="form-input-premium" required />
                   </div>
                 </div>
 
                 <div className="mb-5">
                   <label htmlFor="contact_subject" className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-                  <input type="text" name="contact_subject" id="contact_subject" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" required />
+                  <input type="text" name="contact_subject" id="contact_subject" className="form-input-premium" required />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
                   <div>
                     <label htmlFor="latest_degree" className="block text-sm font-medium text-gray-700 mb-2">Latest Academic Degree</label>
-                    <input type="text" name="latest_degree" id="latest_degree" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" placeholder="e.g., BSc in CSE" />
+                    <input type="text" name="latest_degree" id="latest_degree" className="form-input-premium" placeholder="e.g., BSc in CSE" />
                   </div>
                   <div>
                     <label htmlFor="cgpa" className="block text-sm font-medium text-gray-700 mb-2">CGPA</label>
-                    <input type="text" name="cgpa" id="cgpa" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" placeholder="e.g., 3.80 out of 4.00" />
+                    <input type="text" name="cgpa" id="cgpa" className="form-input-premium" placeholder="e.g., 3.80 out of 4.00" />
                   </div>
                 </div>
 
                 <div className="mb-5">
                   <label htmlFor="interested_program" className="block text-sm font-medium text-gray-700 mb-2">Interested Academic Program</label>
-                  <input type="text" name="interested_program" id="interested_program" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" placeholder="e.g., MSc in Data Science" />
+                  <input type="text" name="interested_program" id="interested_program" className="form-input-premium" placeholder="e.g., MSc in Data Science" />
                 </div>
 
                 <div className="mb-6">
                   <label htmlFor="contact_message" className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                  <textarea name="contact_message" id="contact_message" rows={5} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#6D5795] focus:ring-4 focus:ring-[#6D5795]/20 transition-all" required></textarea>
+                  <textarea name="contact_message" id="contact_message" rows={5} className="form-input-premium" required></textarea>
                 </div>
 
                 <div>
