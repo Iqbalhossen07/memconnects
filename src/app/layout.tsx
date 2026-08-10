@@ -25,7 +25,10 @@ export const metadata: Metadata = {
     title: "Mem Connects - Your Gateway to UK Higher Education",
     description: "Expert educational consultancy in London helping students secure admission to top UK universities.",
     images: ["https://www.memconnects.co.uk/img/og-image.jpg"],
-  }
+  },
+  icons: {
+    icon: "/img/fev.png",
+  },
 };
 
 export default function RootLayout({

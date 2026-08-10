@@ -1,6 +1,7 @@
 import Link from "next/link";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import TestimonialSlider from "@/components/TestimonialSlider";
 
 export default async function Home() {
   // Fetch testimonials mapping to introspected schema
@@ -331,46 +332,7 @@ export default async function Home() {
             <span className="inline-block bg-purple-100 text-[#6D5795] text-sm font-semibold px-4 py-1 rounded-full mb-3">TESTIMONIALS</span>
             <h2 className="text-4xl font-bold text-gray-800">What Our <span className="gradient-text">Students Say</span></h2>
           </div>
-          <div className="relative">
-            <div className="overflow-hidden">
-              <div id="testimonial-slider" className="flex transition-transform duration-500 ease-in-out -mx-3 overflow-x-auto snap-x">
-                {testimonialsData.length > 0 ? (
-                  testimonialsData.map((row) => {
-                    const nameParts = row.t_name ? row.t_name.split(' ') : ['A'];
-                    const initials = nameParts.length > 1 
-                      ? (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase()
-                      : row.t_name ? row.t_name.substring(0, 2).toUpperCase() : 'A';
-                      
-                    return (
-                      <div key={row.id} className="testimonial-card min-w-full md:min-w-[50%] lg:min-w-[33.33%] px-3 snap-center shrink-0">
-                        <div className="bg-white p-6 rounded-2xl h-full flex flex-col shadow-lg border border-gray-100 relative">
-                          <div className="flex items-center mb-4 text-yellow-400">
-                            <i className="fas fa-star"></i><i className="fas fa-star ml-1"></i><i className="fas fa-star ml-1"></i><i className="fas fa-star ml-1"></i><i className="fas fa-star ml-1"></i>
-                          </div>
-                          <i className="fas fa-quote-left text-purple-100 text-4xl absolute top-5 right-5 opacity-80"></i>
-                          <p className="text-gray-600 mb-5 italic text-sm leading-relaxed flex-grow">
-                            "{row.t_des}"
-                          </p>
-                          <div className="mt-auto">
-                            <div className="flex items-center">
-                              <div className="w-10 h-10 rounded-full bg-[#6D5795] text-white flex items-center justify-center font-bold text-lg mr-3">
-                                {initials}
-                              </div>
-                              <div>
-                                <p className="font-bold text-gray-800 text-sm">{row.t_name}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <p className="text-center text-gray-500 w-full">No testimonials found.</p>
-                )}
-              </div>
-            </div>
-          </div>
+          <TestimonialSlider testimonials={testimonialsData} />
         </div>
       </section>
 
