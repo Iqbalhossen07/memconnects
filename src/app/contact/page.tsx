@@ -1,11 +1,29 @@
-import Link from "next/link";
+"use client";
 
-export const metadata = {
-  title: "Contact Us - Mem Connects",
-  description: "Contact Mem Connects for expert guidance on studying in the UK. Reach out to our London office via email, phone, or our contact form.",
-};
+import Link from "next/link";
+import { useState } from "react";
+import { submitContactForm } from "@/actions/contactAction";
 
 export default function ContactPage() {
+  const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus(null);
+
+    const formData = new FormData(e.currentTarget);
+    const result = await submitContactForm(formData);
+    
+    setStatus(result);
+    setIsSubmitting(false);
+
+    if (result.success) {
+      (e.target as HTMLFormElement).reset();
+    }
+  };
+
   return (
     <main>
       <section className="page-header-bg py-20 text-white text-center">
@@ -45,7 +63,16 @@ export default function ContactPage() {
             <div className="lg:col-span-3 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
               <h3 className="text-2xl font-bold mb-6">Send Us a Message</h3>
 
-              <form action="/api/contact" method="POST">
+              {status && (
+                <div className={`p-4 rounded-md mb-6 border-l-4 ${status.success ? 'bg-green-100 border-green-400 text-green-700' : 'bg-red-100 border-red-400 text-red-700'}`}>
+                  <div className="flex items-center">
+                    <i className={`fas ${status.success ? 'fa-check-circle' : 'fa-exclamation-triangle'} mr-3 text-lg`}></i>
+                    <p className="font-medium">{status.message}</p>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit}>
                 {/* Honeypot */}
                 <div style={{ position: "absolute", left: "-5000px" }} aria-hidden="true">
                   <label htmlFor="website_url">Website URL</label>
@@ -90,8 +117,8 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <button type="submit" className="w-full bg-[#6D5795] text-white font-bold py-3.5 px-6 rounded-lg hover:bg-[#59457A] transition-all duration-300 transform hover:scale-105">
-                    Send Message
+                  <button type="submit" disabled={isSubmitting} className="w-full bg-[#6D5795] text-white font-bold py-3.5 px-6 rounded-lg hover:bg-[#59457A] transition-all duration-300 transform hover:scale-105 disabled:opacity-50">
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>
               </form>
