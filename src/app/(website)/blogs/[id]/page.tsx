@@ -32,7 +32,7 @@ export default async function BlogDetails({ params }: { params: Promise<{ id: st
     <main>
       <section className="page-header-bg py-16 text-white text-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight">{post.title}</h1>
+          <h1 className="text-3xl lg:text-4xl font-extrabold tracking-tight text-white">{post.title}</h1>
           <nav className="flex justify-center mt-6" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-2">
               <li className="inline-flex items-center">

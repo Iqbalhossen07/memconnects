@@ -11,8 +11,8 @@ export default function PhdApplicationPage() {
     <main className="bg-gray-50 min-h-screen pb-20">
       <section className="bg-[#6D5795] py-20 text-white text-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">PhD Application Portal</h1>
-          <p className="text-xl text-white/90 max-w-2xl mx-auto">Dedicated support for your doctoral research ambitions.</p>
+          <h1 className="text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 text-white">PhD Application Portal</h1>
+          <p className="mt-3 text-lg text-white/90 max-w-2xl mx-auto">Dedicated support for your doctoral research ambitions.</p>
         </div>
       </section>
 
