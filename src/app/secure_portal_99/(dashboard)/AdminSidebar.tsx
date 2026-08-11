@@ -53,7 +53,9 @@ export default function AdminSidebar() {
         </div>
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         {links.map((link) => {
-          const isActive = pathname === link.href;
+          const isActive = link.href === "/secure_portal_99" 
+            ? pathname === link.href 
+            : pathname.startsWith(link.href);
           return (
             <Link 
               key={link.href} 

@@ -64,7 +64,9 @@ export default function AdminBottomNav() {
     <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-3 py-2 pb-safe z-30 shadow-[0_-4px_15px_-5px_rgba(0,0,0,0.05)] overflow-x-auto">
       <div className="flex justify-between items-center max-w-md mx-auto gap-1">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = item.href === "/secure_portal_99" 
+            ? pathname === item.href 
+            : pathname.startsWith(item.href);
           return (
             <Link 
               key={item.href} 
