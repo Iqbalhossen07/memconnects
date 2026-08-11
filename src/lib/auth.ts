@@ -24,9 +24,9 @@ export async function decrypt(input: string): Promise<any> {
   }
 }
 
-export async function createSession(adminId: number, email: string, name: string) {
+export async function createSession(adminId: number, email: string, name: string, profile_picture: string | null = null) {
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-  const session = await encrypt({ adminId, email, name, expires });
+  const session = await encrypt({ adminId, email, name, profile_picture, expires });
 
   const cookieStore = await cookies();
   cookieStore.set("admin_session", session, {

@@ -4,9 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { addBlog } from "@/app/actions/blogActions";
+import TextEditor from "@/components/TextEditor";
+import { MdArrowBack, MdSave } from "react-icons/md";
 
 export default function NewBlogPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [content, setContent] = useState("");
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -14,6 +17,8 @@ export default function NewBlogPage() {
     setIsSubmitting(true);
     
     const formData = new FormData(e.currentTarget);
+    formData.set("content", content); // Add the rich text content
+
     const res = await addBlog(null, formData);
     
     if (res?.success) {
@@ -29,8 +34,8 @@ export default function NewBlogPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center">
-          <Link href="/secure_portal_99/blogs" className="mr-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-500 hover:text-gray-800 transition">
-            <i className="fas fa-arrow-left"></i>
+          <Link href="/secure_portal_99/blogs" className="mr-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-500 hover:text-[#F2852C] transition border border-gray-100 hover:shadow-md">
+            <MdArrowBack size={20} />
           </Link>
           <div>
             <h1 className="text-3xl font-bold text-gray-800">Add New Blog</h1>
@@ -66,12 +71,13 @@ export default function NewBlogPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Content (HTML allowed) *</label>
-            <textarea name="content" required rows={10} className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F2852C] outline-none"></textarea>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Content *</label>
+            <TextEditor value={content} onChange={setContent} placeholder="Write your blog post here..." />
           </div>
 
           <div className="pt-4 flex justify-end">
-            <button type="submit" disabled={isSubmitting} className={`px-8 py-3 rounded-lg font-bold text-white transition shadow-sm ${isSubmitting ? 'bg-gray-400' : 'bg-[#6D5795] hover:bg-[#5a487c]'}`}>
+            <button type="submit" disabled={isSubmitting} className={`flex items-center px-8 py-3 rounded-xl font-bold text-white transition shadow-md hover:shadow-lg ${isSubmitting ? 'bg-gray-400' : 'bg-[#6D5795] hover:bg-[#5a487c]'}`}>
+              <MdSave className="mr-2" size={20} />
               {isSubmitting ? "Publishing..." : "Publish Blog"}
             </button>
           </div>

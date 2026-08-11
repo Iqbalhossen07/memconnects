@@ -30,7 +30,7 @@ export async function loginAdmin(prevState: any, formData: FormData) {
     }
 
     // Create session
-    await createSession(admin.id, admin.email, admin.full_name);
+    await createSession(admin.id, admin.email, admin.full_name, admin.profile_picture);
     
     return { success: true };
   } catch (error) {

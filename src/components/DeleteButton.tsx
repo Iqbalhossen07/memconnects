@@ -1,6 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
+import Swal from "sweetalert2";
+import { MdDelete } from "react-icons/md";
 
 interface DeleteButtonProps {
   onDelete: () => Promise<void>;
@@ -8,15 +10,30 @@ interface DeleteButtonProps {
   className?: string;
 }
 
-export default function DeleteButton({ onDelete, itemType = "item", className = "text-red-500 hover:text-red-700 p-2" }: DeleteButtonProps) {
+export default function DeleteButton({ onDelete, itemType = "item", className = "text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 transition" }: DeleteButtonProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
-    if (confirm(`Are you sure you want to delete this ${itemType}?`)) {
-      startTransition(async () => {
-        await onDelete();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You won't be able to revert this ${itemType}!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#F2852C',
+      cancelButtonColor: '#6D5795',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        startTransition(async () => {
+          await onDelete();
+          Swal.fire(
+            'Deleted!',
+            `Your ${itemType} has been deleted.`,
+            'success'
+          );
+        });
+      }
+    });
   };
 
   return (
@@ -28,9 +45,9 @@ export default function DeleteButton({ onDelete, itemType = "item", className = 
       title="Delete"
     >
       {isPending ? (
-        <i className="fas fa-spinner fa-spin"></i>
+        <span className="animate-spin inline-block w-5 h-5 border-2 border-current border-t-transparent text-red-500 rounded-full" />
       ) : (
-        <i className="fas fa-trash"></i>
+        <MdDelete size={20} />
       )}
     </button>
   );
