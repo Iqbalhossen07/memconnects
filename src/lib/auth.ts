@@ -14,10 +14,14 @@ export async function encrypt(payload: any) {
 }
 
 export async function decrypt(input: string): Promise<any> {
-  const { payload } = await jwtVerify(input, key, {
-    algorithms: ["HS256"],
-  });
-  return payload;
+  try {
+    const { payload } = await jwtVerify(input, key, {
+      algorithms: ["HS256"],
+    });
+    return payload;
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function createSession(adminId: number, email: string, name: string) {
@@ -57,6 +61,8 @@ export async function updateSession(request: NextRequest) {
   if (!session) return;
 
   const parsed = await decrypt(session);
+  if (!parsed) return;
+
   parsed.expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
   
   const res = NextResponse.next();

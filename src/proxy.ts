@@ -3,28 +3,30 @@ import type { NextRequest } from 'next/server';
 import { getSession, updateSession } from './lib/auth';
 
 export async function proxy(request: NextRequest) {
-  // Update session if it exists
-  const sessionResponse = await updateSession(request);
+  const sessionCookie = request.cookies.get("admin_session")?.value;
+  let hasValidSession = false;
+
+  if (sessionCookie) {
+    const parsed = await getSession();
+    if (parsed) hasValidSession = true;
+  }
   
-  // Protect admin routes
+  const isLoginPage = request.nextUrl.pathname.startsWith('/secure_portal_99/login');
+
   if (request.nextUrl.pathname.startsWith('/secure_portal_99')) {
-    // Exclude the login page itself
-    if (request.nextUrl.pathname === '/secure_portal_99/login') {
-      // If already logged in, redirect to dashboard
-      const session = await getSession();
-      if (session) {
+    if (isLoginPage) {
+      if (hasValidSession) {
         return NextResponse.redirect(new URL('/secure_portal_99', request.url));
       }
       return NextResponse.next();
     }
 
-    const session = await getSession();
-    if (!session) {
+    if (!hasValidSession) {
       return NextResponse.redirect(new URL('/secure_portal_99/login', request.url));
     }
   }
 
-  return sessionResponse || NextResponse.next();
+  return NextResponse.next();
 }
 
 export const config = {
