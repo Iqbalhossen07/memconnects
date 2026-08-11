@@ -27,21 +27,22 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center text-4xl text-[#6D5795] mb-4">
-          <i className="fas fa-shield-alt"></i>
-        </div>
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">
-          Secure Portal
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Admin Login Area
-        </p>
-      </div>
-
+    <div className="min-h-[calc(100vh-150px)] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-gray-100">
+        <div className="bg-white py-10 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-gray-100 relative overflow-hidden">
+          {/* Decorative top border */}
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F2852C] to-[#6D5795]"></div>
+
+          <div className="mb-8 text-center">
+            <img src="/logo_black.png" alt="Mem Connects Logo" className="h-16 mx-auto mb-4 object-contain" />
+            <h2 className="text-2xl font-extrabold text-gray-900">
+              Secure Portal
+            </h2>
+            <p className="mt-2 text-sm text-gray-500">
+              Admin Login Area
+            </p>
+          </div>
+
           {error && (
             <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
               <p className="text-sm text-red-700">{error}</p>
