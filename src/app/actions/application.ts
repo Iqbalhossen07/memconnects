@@ -168,25 +168,100 @@ export async function submitApplication(prevState: any, formData: FormData) {
         },
       });
 
-      const mailOptions = {
+      // 1. Admin Email Template
+      const adminMailOptions = {
         from: `"${data.name || 'Applicant'} ${data.family_name || ''}" <${process.env.SMTP_USER}>`,
         replyTo: data.email,
         to: process.env.SMTP_USER,
         subject: `New Application Received: ${data.name || ''} ${data.family_name || ''}`,
         html: `
-          <h2>New Application Submission</h2>
-          <p><strong>Name:</strong> ${data.name || ''} ${data.family_name || ''}</p>
-          <p><strong>Email:</strong> ${data.email || ''}</p>
-          <p><strong>Phone:</strong> ${data.phone || ''}</p>
-          <p><strong>Nationality:</strong> ${data.nationality || ''}</p>
-          <p><strong>Interested Level:</strong> ${data.Academic_interests_Level_of_study || ''}</p>
-          <p><strong>Programme:</strong> ${data.Programme || ''}</p>
-          <br/>
-          <p>Please log in to the admin panel to view the complete application and attached documents.</p>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div style="background-color: #F2852C; padding: 20px; text-align: center;">
+              <h2 style="color: #ffffff; margin: 0;">New Application Received</h2>
+            </div>
+            <div style="padding: 30px; background-color: #ffffff;">
+              <p style="color: #374151; font-size: 16px;">A new student application has been submitted through the portal.</p>
+              
+              <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr style="background-color: #f9fafb;">
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563; width: 35%;">Applicant Name</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.name || ''} ${data.family_name || ''}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563;">Email Address</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.email || 'N/A'}</td>
+                </tr>
+                <tr style="background-color: #f9fafb;">
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563;">Phone Number</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.phone || 'N/A'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563;">Nationality</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.nationality || 'N/A'}</td>
+                </tr>
+                <tr style="background-color: #f9fafb;">
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563;">Interested Level</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.Academic_interests_Level_of_study || 'N/A'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #4b5563;">Programme</td>
+                  <td style="padding: 12px; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${data.Programme || 'N/A'}</td>
+                </tr>
+              </table>
+
+              <div style="margin-top: 30px; text-align: center;">
+                <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/secure_portal_99/applications" style="background-color: #6D5795; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">View Full Details in Admin Portal</a>
+              </div>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 15px; text-align: center; color: #6b7280; font-size: 12px;">
+              <p style="margin: 0;">This is an automated notification from Mem Connects Application Portal.</p>
+            </div>
+          </div>
         `,
       };
 
-      await transporter.sendMail(mailOptions);
+      // 2. Student Confirmation Email Template
+      const studentMailOptions = {
+        from: `"Mem Connects" <${process.env.SMTP_USER}>`,
+        to: data.email,
+        subject: `Application Received - Mem Connects`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div style="background-color: #6D5795; padding: 30px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 28px;">Thank You!</h1>
+              <p style="color: #e5e7eb; margin-top: 10px; font-size: 16px;">We have received your application</p>
+            </div>
+            <div style="padding: 40px 30px; background-color: #ffffff;">
+              <p style="color: #374151; font-size: 16px; line-height: 1.6;">Dear <strong>${data.name || ''} ${data.family_name || ''}</strong>,</p>
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+                Thank you for applying to study in the UK through Mem Connects. We have successfully received your application details for the <strong>${data.Programme || 'requested'}</strong> programme.
+              </p>
+              
+              <div style="background-color: #FDF8F3; border-left: 4px solid #F2852C; padding: 15px 20px; margin: 25px 0;">
+                <h3 style="color: #9a3412; margin-top: 0; font-size: 16px;">What happens next?</h3>
+                <p style="color: #c2410c; margin-bottom: 0; font-size: 14px; line-height: 1.5;">Our expert advisory team will review your application and documents carefully. We will contact you shortly via email or phone to discuss the next steps in your admission process.</p>
+              </div>
+              
+              <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">If you have any urgent questions, please feel free to reply to this email or contact us through our website.</p>
+              
+              <p style="color: #374151; font-size: 16px; line-height: 1.6; margin-top: 30px;">
+                Warm regards,<br/>
+                <strong>Mem Connects Team</strong>
+              </p>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 20px; text-align: center; color: #6b7280; font-size: 12px;">
+              <p style="margin: 0 0 10px 0;">Mem Connects | UK University Admissions Specialists</p>
+              <p style="margin: 0;">&copy; ${new Date().getFullYear()} Mem Connects. All rights reserved.</p>
+            </div>
+          </div>
+        `,
+      };
+
+      await transporter.sendMail(adminMailOptions);
+      if (data.email) {
+        await transporter.sendMail(studentMailOptions);
+      }
     } catch (emailError) {
       console.error("Error sending application email:", emailError);
       // We don't want to fail the submission if email fails, so just log it.
