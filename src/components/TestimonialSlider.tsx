@@ -61,14 +61,16 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
           )}
         </div>
       </div>
-      <div className="text-center mt-8">
-        <button onClick={scrollLeft} className="bg-white rounded-full p-2.5 shadow-md hover:bg-gray-100 transition-colors mx-1.5">
-          <i className="fas fa-chevron-left text-[#6D5795] w-4 h-4"></i>
-        </button>
-        <button onClick={scrollRight} className="bg-white rounded-full p-2.5 shadow-md hover:bg-gray-100 transition-colors mx-1.5">
-          <i className="fas fa-chevron-right text-[#6D5795] w-4 h-4"></i>
-        </button>
-      </div>
+      {testimonials.length > 3 && (
+        <div className="text-center mt-8">
+          <button onClick={scrollLeft} className="bg-white rounded-full p-2.5 shadow-md hover:bg-gray-100 transition-colors mx-1.5">
+            <i className="fas fa-chevron-left text-[#6D5795] w-4 h-4"></i>
+          </button>
+          <button onClick={scrollRight} className="bg-white rounded-full p-2.5 shadow-md hover:bg-gray-100 transition-colors mx-1.5">
+            <i className="fas fa-chevron-right text-[#6D5795] w-4 h-4"></i>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
