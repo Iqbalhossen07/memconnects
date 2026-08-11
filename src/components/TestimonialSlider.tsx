@@ -4,10 +4,8 @@ import { useRef } from "react";
 
 interface Testimonial {
   id: number;
-  t_name: string;
-  t_des: string;
-  t_review: string | null;
-  created_at: Date;
+  student_name: string;
+  review_text: string;
 }
 
 export default function TestimonialSlider({ testimonials }: { testimonials: Testimonial[] }) {
@@ -31,10 +29,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
         <div ref={sliderRef} className="flex transition-transform duration-500 ease-in-out -mx-3 overflow-x-auto snap-x hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {testimonials.length > 0 ? (
             testimonials.map((row) => {
-              const nameParts = row.t_name ? row.t_name.split(' ') : ['A'];
-              const initials = nameParts.length > 1 
-                ? (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase()
-                : row.t_name ? row.t_name.substring(0, 2).toUpperCase() : 'A';
+              const initials = row.student_name ? row.student_name.substring(0, 2).toUpperCase() : 'A';
                 
               return (
                 <div key={row.id} className="testimonial-card w-full md:w-1/2 lg:w-1/3 px-3 snap-center shrink-0">
@@ -45,7 +40,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
                     <i className="fas fa-quote-left text-purple-100 text-4xl absolute top-5 right-5 opacity-80"></i>
                     <div 
                       className="text-gray-600 mb-5 italic text-sm leading-relaxed flex-grow"
-                      dangerouslySetInnerHTML={{ __html: `"${row.t_des}"` }}
+                      dangerouslySetInnerHTML={{ __html: `"${row.review_text}"` }}
                     />
                     <div className="mt-auto">
                       <div className="flex items-center">
@@ -53,7 +48,7 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
                           {initials}
                         </div>
                         <div>
-                          <p className="font-bold text-gray-800 text-sm">{row.t_name}</p>
+                          <p className="font-bold text-gray-800 text-sm">{row.student_name}</p>
                         </div>
                       </div>
                     </div>

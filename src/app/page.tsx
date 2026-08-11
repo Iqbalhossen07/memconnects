@@ -346,16 +346,15 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsData.length > 0 ? (
               blogsData.map((post) => {
-                const imagePath = post.image ? `/uploads/blogs/${post.image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
+                const imagePath = post.featured_image ? `/uploads/blogs/${post.featured_image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
                 return (
                   <div key={post.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
                     <div className="relative overflow-hidden h-48">
                       <Link href={`/blogs/${post.id}`}>
                         <img 
                           src={imagePath} 
-                          alt={post.name} 
+                          alt={post.title} 
                           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                          onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image'; }}
                         />
                       </Link>
                       <span className="absolute top-3 left-3 bg-[#6D5795] text-white text-xs font-semibold px-2.5 py-1 rounded-full">{post.category || 'Blog'}</span>
@@ -365,7 +364,7 @@ export default async function Home() {
                         <span><i className="far fa-calendar-alt mr-1.5"></i>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                       </div>
                       <h3 className="font-bold text-lg mb-2 text-gray-800 group-hover:text-[#F2852C] transition-colors">
-                        <Link href={`/blogs/${post.id}`}>{post.name}</Link>
+                        <Link href={`/blogs/${post.id}`}>{post.title}</Link>
                       </h3>
                       <Link href={`/blogs/${post.id}`} className="font-semibold text-[#F2852C] text-sm hover:text-[#D9721B] group-inner flex items-center">
                         Read More <i className="fas fa-arrow-right ml-1 text-xs transition-transform group-inner-hover:translate-x-1"></i>

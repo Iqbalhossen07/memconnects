@@ -7,117 +7,135 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model about_content {
-  id         Int     @id @default(autoincrement())
-  content    String? @db.Text
-  content_bn String? @db.LongText
-  image      String? @db.VarChar(255)
-}
-
-model admin_login {
-  id        Int     @id @default(autoincrement())
-  name      String? @db.VarChar(255)
-  email     String? @db.VarChar(255)
-  password  String? @db.VarChar(225)
-  user_type String? @default("Admin") @db.VarChar(225)
-  image     String? @db.VarChar(225)
-}
-
 model blogs {
-  id             Int      @id @default(autoincrement())
-  name           String   @db.VarChar(255)
-  name_bn        String?  @db.VarChar(255)
-  category       String?  @db.VarChar(255)
-  category_bn    String?  @db.VarChar(255)
-  description    String?  @db.Text
-  description_bn String?  @db.Text
-  author_name    String?  @db.VarChar(255)
-  author_name_bn String?  @db.VarChar(255)
-  image          String?  @db.VarChar(255)
-  created_at     DateTime @default(now()) @db.Timestamp(0)
-}
-
-model contact_details {
-  id       Int     @id @default(1)
-  location String? @db.Text
-  phone    String? @db.VarChar(255)
-  email    String? @db.VarChar(255)
-}
-
-model events {
-  id            Int      @id @default(autoincrement())
-  event_name    String   @db.VarChar(255)
-  event_name_bn String?  @db.VarChar(255)
-  event_date    DateTime @db.DateTime(0)
-  venue         String   @db.VarChar(255)
-  venue_bn      String?  @db.VarChar(255)
-  details       String?  @db.Text
-  details_bn    String?  @db.Text
-  image         String?  @db.VarChar(255)
-  ticket_link   String?  @db.VarChar(255)
-  created_at    DateTime @default(now()) @db.Timestamp(0)
-  updated_at    DateTime @default(now()) @db.Timestamp(0)
-}
-
-model gallery {
-  id         Int      @id @default(autoincrement())
-  title      String?  @db.VarChar(255)
-  image      String   @db.VarChar(255)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-}
-
-model hero_images {
-  id         Int      @id @default(autoincrement())
-  image      String   @db.VarChar(255)
-  created_at DateTime @default(now()) @db.Timestamp(0)
-}
-
-model locations {
-  id          Int    @id @default(autoincrement())
-  branch_name String @db.VarChar(255)
-  address     String @db.Text
-}
-
-model members {
-  id            Int     @id @default(autoincrement())
-  name          String? @db.VarChar(255)
-  designation   String? @db.VarChar(1000)
-  email         String? @db.VarChar(255)
-  linkedln_link String? @db.VarChar(255)
-  facebook_link String? @db.VarChar(255)
-  image         String? @db.VarChar(255)
-}
-
-model messages {
-  id      Int     @id @default(autoincrement())
-  name    String? @db.VarChar(255)
-  email   String? @db.VarChar(255)
-  phone   String? @db.VarChar(255)
-  message String? @db.Text
-}
-
-model portfolios {
-  id          Int     @id @default(autoincrement())
-  name        String? @db.VarChar(255)
-  category    String? @db.VarChar(255)
-  description String? @db.Text
-  image       String? @db.VarChar(255)
-}
-
-model services {
-  id             Int      @id @default(autoincrement())
-  title          String   @db.VarChar(255)
-  title_bn       String?  @db.VarChar(255)
-  description    String   @db.Text
-  description_bn String?  @db.Text
-  created_at     DateTime @default(now()) @db.Timestamp(0)
+  id             Int          @id @default(autoincrement())
+  title          String       @db.VarChar(255)
+  content        String       @db.LongText
+  category       String?      @db.VarChar(100)
+  featured_image String?      @db.VarChar(255)
+  author         String?      @default("Admin") @db.VarChar(255)
+  status         blogs_status @default(draft)
+  created_at     DateTime     @default(now()) @db.Timestamp(0)
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model testimonials {
+  id           Int    @id @default(autoincrement())
+  student_name String @db.VarChar(255)
+  review_text  String @db.Text
+}
+
+model admins {
   id         Int      @id @default(autoincrement())
-  t_name     String   @db.VarChar(150)
-  t_des      String   @db.Text
-  t_review   String?  @default("5.0") @db.VarChar(50)
+  full_name  String   @db.VarChar(255)
+  email      String   @unique(map: "email") @db.VarChar(255)
+  password   String   @db.VarChar(255)
   created_at DateTime @default(now()) @db.Timestamp(0)
+}
+
+model applications {
+  id                                   Int       @id @default(autoincrement())
+  submission_date                      DateTime  @default(now()) @db.Timestamp(0)
+  name                                 String?   @db.VarChar(255)
+  family_name                          String?   @db.VarChar(255)
+  email                                String?   @db.VarChar(255)
+  phone                                String?   @db.VarChar(50)
+  date_Of_Birth                        DateTime? @db.Date
+  nationality                          String?   @db.VarChar(100)
+  country_Of_Birth                     String?   @db.VarChar(100)
+  native_Language                      String?   @db.VarChar(100)
+  name_appears_in_passport             String?   @db.VarChar(255)
+  passport_Number                      String?   @db.VarChar(100)
+  passport_issue_location              String?   @db.VarChar(255)
+  issue_date                           DateTime? @db.Date
+  expiry_date                          DateTime? @db.Date
+  address_with_postal_Code             String?   @db.Text
+  emergency_contact_Name               String?   @db.VarChar(255)
+  emergency_contact_Telephone          String?   @db.VarChar(50)
+  emergency_contact_Email              String?   @db.VarChar(255)
+  emergency_contact_Relationship       String?   @db.VarChar(100)
+  UK_in_the_past_ten_years             String?   @db.VarChar(10)
+  Date_of_Arrival                      DateTime? @db.Date
+  Date_of_Departure                    DateTime? @db.Date
+  Visa_Start_date                      DateTime? @db.Date
+  Visa_Expiry_date                     DateTime? @db.Date
+  Purpose_of_visit                     String?   @db.Text
+  Visa_type                            String?   @db.VarChar(100)
+  visa_to_stay_in_the_UK               String?   @db.VarChar(10)
+  Refusal_type                         String?   @db.VarChar(255)
+  Date_of_Refusal                      DateTime? @db.Date
+  Details                              String?   @db.Text
+  Country                              String?   @db.VarChar(100)
+  masters_Institution                  String?   @db.VarChar(255)
+  masters_Course                       String?   @db.VarChar(255)
+  masters_Level_of_Study               String?   @db.VarChar(100)
+  masters_Results                      String?   @db.VarChar(50)
+  masters_Start_date                   DateTime? @db.Date
+  masters_End_Date                     DateTime? @db.Date
+  under_Institution                    String?   @db.VarChar(255)
+  under_Course                         String?   @db.VarChar(255)
+  under_Level_of_Study                 String?   @db.VarChar(100)
+  under_Result                         String?   @db.VarChar(50)
+  under_Start_date                     DateTime? @db.Date
+  under_End_Date                       DateTime? @db.Date
+  HSC_Institution                      String?   @db.VarChar(255)
+  HSC_Course                           String?   @db.VarChar(255)
+  HSC_Level_of_Study                   String?   @db.VarChar(100)
+  HSC_Result                           String?   @db.VarChar(50)
+  HSC_Start_date                       DateTime? @db.Date
+  HSC_End_Date                         DateTime? @db.Date
+  SSC_Institution                      String?   @db.VarChar(255)
+  SSC_Course                           String?   @db.VarChar(255)
+  SSC_Level_of_Study                   String?   @db.VarChar(100)
+  SSC_Result                           String?   @db.VarChar(50)
+  SSC_Start_date                       DateTime? @db.Date
+  SSC_End_Date                         DateTime? @db.Date
+  Academic_interests_Level_of_study    String?   @db.VarChar(100)
+  Discipline                           String?   @db.VarChar(255)
+  Programme                            String?   @db.VarChar(255)
+  interests_Start_date                 DateTime? @db.Date
+  Location                             String?   @db.VarChar(255)
+  Duo_lingo                            String?   @db.VarChar(50)
+  GMAT                                 String?   @db.VarChar(50)
+  IELTS                                String?   @db.VarChar(50)
+  IELTS_UKVI                           String?   @db.VarChar(50)
+  PTE                                  String?   @db.VarChar(50)
+  TOFEL                                String?   @db.VarChar(50)
+  Date_of_test                         DateTime? @db.Date
+  Overall_Score                        String?   @db.VarChar(50)
+  Reading                              String?   @db.VarChar(50)
+  Writing                              String?   @db.VarChar(50)
+  Listening                            String?   @db.VarChar(50)
+  Speaking                             String?   @db.VarChar(50)
+  Job_title                            String?   @db.VarChar(255)
+  Name_of_organization                 String?   @db.VarChar(255)
+  Address_of_organization              String?   @db.Text
+  work_Phone_number                    String?   @db.VarChar(50)
+  From_date                            DateTime? @db.Date
+  To_date                              DateTime? @db.Date
+  Student_currently_works              String?   @db.VarChar(10)
+  passport_all_used_copy               String?   @db.Text
+  all_official_certificates_marksheets String?   @db.Text
+  cv_two_references                    String?   @db.Text
+  passport_photo                       String?   @db.Text
+  status                               String    @default("Pending") @db.VarChar(50)
+  others_document                      String?   @db.Text
+}
+
+model contact_messages {
+  id                 Int      @id @default(autoincrement())
+  sender_name        String   @db.VarChar(255)
+  sender_email       String   @db.VarChar(255)
+  subject            String   @db.VarChar(255)
+  latest_degree      String?  @db.VarChar(255)
+  cgpa               String?  @db.VarChar(100)
+  interested_program String?  @db.VarChar(255)
+  message            String   @db.Text
+  submission_date    DateTime @default(now()) @db.Timestamp(0)
+  is_read            Boolean  @default(false)
+}
+
+enum blogs_status {
+  published
+  draft
 }
