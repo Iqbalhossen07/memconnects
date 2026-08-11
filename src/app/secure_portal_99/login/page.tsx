@@ -27,15 +27,14 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-150px)] bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="bg-gray-50 pt-10 pb-20 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-10 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-gray-100 relative overflow-hidden">
           {/* Decorative top border */}
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#F2852C] to-[#6D5795]"></div>
 
           <div className="mb-8 text-center">
-            <img src="/logo_black.png" alt="Mem Connects Logo" className="h-16 mx-auto mb-4 object-contain" />
-            <h2 className="text-2xl font-extrabold text-gray-900">
+            <h2 className="text-2xl font-extrabold text-gray-900 mt-2">
               Secure Portal
             </h2>
             <p className="mt-2 text-sm text-gray-500">
