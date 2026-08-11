@@ -10,7 +10,7 @@ interface DeleteButtonProps {
   className?: string;
 }
 
-export default function DeleteButton({ onDelete, itemType = "item", className = "flex items-center gap-1.5 px-4 py-2 bg-white text-red-500 border border-gray-100 hover:border-red-200 hover:bg-red-50 rounded-xl shadow-sm transition font-medium text-sm" }: DeleteButtonProps) {
+export default function DeleteButton({ onDelete, itemType = "item", className = "flex items-center gap-1.5 px-4 py-2 bg-white text-red-500 border border-gray-100 hover:border-red-200 hover:bg-red-50 rounded-xl shadow-sm transition font-medium text-sm flex-shrink-0 whitespace-nowrap" }: DeleteButtonProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
@@ -51,7 +51,7 @@ export default function DeleteButton({ onDelete, itemType = "item", className = 
         </>
       ) : (
         <>
-          <MdOutlineDelete size={18} />
+          <MdOutlineDelete size={18} className="flex-shrink-0" />
           <span>Delete</span>
         </>
       )}

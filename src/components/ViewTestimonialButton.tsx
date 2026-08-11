@@ -31,10 +31,10 @@ export default function ViewTestimonialButton({ testimonial }: ViewTestimonialBu
   return (
     <button 
       onClick={handleView}
-      className="flex items-center gap-1.5 px-4 py-2 bg-white text-[#00a86b] border border-gray-100 hover:border-[#00a86b]/30 hover:bg-[#00a86b]/5 rounded-xl shadow-sm transition font-medium text-sm" 
+      className="flex items-center gap-1.5 px-4 py-2 bg-white text-[#00a86b] border border-gray-100 hover:border-[#00a86b]/30 hover:bg-[#00a86b]/5 rounded-xl shadow-sm transition font-medium text-sm flex-shrink-0 whitespace-nowrap" 
       title="View Testimonial"
     >
-      <MdOutlineInfo size={18} />
+      <MdOutlineInfo size={18} className="flex-shrink-0" />
       <span>View</span>
     </button>
   );

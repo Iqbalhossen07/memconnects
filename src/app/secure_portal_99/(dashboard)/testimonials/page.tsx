@@ -40,26 +40,32 @@ export default async function AdminTestimonialsPage() {
 
             <div className="text-gray-600 text-sm flex-1 mb-4 italic bg-gray-50 p-4 rounded-lg border border-gray-100 relative overflow-hidden">
               <span className="absolute top-2 left-2 text-2xl text-gray-300 font-serif leading-none">"</span>
-              <div className="pl-4 line-clamp-4" dangerouslySetInnerHTML={{ __html: test.review_text }} />
+              <div className="pl-4 line-clamp-4 leading-relaxed">
+                {test.review_text.replace(/<[^>]+>/g, '')}
+              </div>
             </div>
             
             <div className="border-t border-gray-100 pt-4 mt-auto flex flex-wrap justify-end items-center gap-2">
-              <ViewTestimonialButton testimonial={test} />
+              <div className="flex-shrink-0">
+                <ViewTestimonialButton testimonial={test} />
+              </div>
               <Link 
                 href={`/secure_portal_99/testimonials/${test.id}/edit`} 
-                className="flex items-center gap-1.5 px-4 py-2 bg-white text-blue-500 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 rounded-xl shadow-sm transition font-medium text-sm" 
+                className="flex items-center gap-1.5 px-4 py-2 bg-white text-blue-500 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 rounded-xl shadow-sm transition font-medium text-sm flex-shrink-0 whitespace-nowrap" 
                 title="Edit Testimonial"
               >
-                <MdOutlineEdit size={18} />
+                <MdOutlineEdit size={18} className="flex-shrink-0" />
                 <span>Edit</span>
               </Link>
-              <DeleteButton 
-                onDelete={async () => {
-                  "use server";
-                  await deleteTestimonial(test.id);
-                }} 
-                itemType="testimonial" 
-              />
+              <div className="flex-shrink-0">
+                <DeleteButton 
+                  onDelete={async () => {
+                    "use server";
+                    await deleteTestimonial(test.id);
+                  }} 
+                  itemType="testimonial" 
+                />
+              </div>
             </div>
           </div>
         ))}
