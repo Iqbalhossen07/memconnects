@@ -16,36 +16,36 @@ export default async function AdminDashboard() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       
-      {/* Overview Cards (Styled exactly like the 3rd image) */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 bg-blue-100/50 text-blue-600 rounded-lg flex items-center justify-center">
-              <MdOutlineAssignment className="text-lg" />
-            </div>
-            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Total Applications</h3>
+      {/* Overview Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-10">
+        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300">
+          <div className="order-2 md:order-1 mt-2 md:mt-0">
+            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Total Applications</p>
+            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{applicationsCount}</p>
           </div>
-          <p className="text-2xl font-medium text-gray-900">{applicationsCount}</p>
+          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-blue-50 text-blue-500 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <MdOutlineAssignment className="text-xl md:text-3xl" />
+          </div>
         </div>
 
-        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 bg-emerald-100/50 text-emerald-600 rounded-lg flex items-center justify-center">
-              <MdOutlineArticle className="text-lg" />
-            </div>
-            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Published Blogs</h3>
+        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300">
+          <div className="order-2 md:order-1 mt-2 md:mt-0">
+            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Published Blogs</p>
+            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{blogsCount}</p>
           </div>
-          <p className="text-2xl font-medium text-gray-900">{blogsCount}</p>
+          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-emerald-50 text-emerald-500 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <MdOutlineArticle className="text-xl md:text-3xl" />
+          </div>
         </div>
 
-        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50 col-span-2 md:col-span-1">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 bg-purple-100/50 text-purple-600 rounded-lg flex items-center justify-center">
-              <MdOutlineStar className="text-lg" />
-            </div>
-            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Testimonials</h3>
+        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300 col-span-2 md:col-span-1">
+          <div className="order-2 md:order-1 mt-2 md:mt-0">
+            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Testimonials</p>
+            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{testimonialsCount}</p>
           </div>
-          <p className="text-2xl font-medium text-gray-900">{testimonialsCount}</p>
+          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-purple-50 text-[#8A56F6] rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <MdOutlineStar className="text-xl md:text-3xl" />
+          </div>
         </div>
       </div>
 
@@ -56,25 +56,25 @@ export default async function AdminDashboard() {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <Link href="/secure_portal_99/blogs/new" className="bg-[#f97316] hover:bg-[#ea580c] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <MdAdd className="text-white text-3xl font-bold" /> 
+          <Link href="/secure_portal_99/blogs/new" className="bg-[#f97316] hover:bg-[#ea580c] transition-colors py-3 md:py-4 px-4 md:px-5 rounded-2xl flex flex-row items-center gap-3 md:gap-4 group">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdAdd className="text-white text-2xl md:text-3xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-lg">Add New Blog</span>
+            <span className="text-white font-medium text-sm md:text-base">Add New Blog</span>
           </Link>
           
-          <Link href="/secure_portal_99/testimonials/new" className="bg-[#8b5cf6] hover:bg-[#7c3aed] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <MdAdd className="text-white text-3xl font-bold" /> 
+          <Link href="/secure_portal_99/testimonials/new" className="bg-[#8b5cf6] hover:bg-[#7c3aed] transition-colors py-3 md:py-4 px-4 md:px-5 rounded-2xl flex flex-row items-center gap-3 md:gap-4 group">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdAdd className="text-white text-2xl md:text-3xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-lg">Add Testimonial</span>
+            <span className="text-white font-medium text-sm md:text-base">Add Testimonial</span>
           </Link>
           
-          <Link href="/secure_portal_99/applications" className="bg-[#3b82f6] hover:bg-[#2563eb] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group sm:col-span-2 md:col-span-1">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <MdFormatListBulleted className="text-white text-2xl font-bold" /> 
+          <Link href="/secure_portal_99/applications" className="bg-[#3b82f6] hover:bg-[#2563eb] transition-colors py-3 md:py-4 px-4 md:px-5 rounded-2xl flex flex-row items-center gap-3 md:gap-4 group sm:col-span-2 md:col-span-1">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdFormatListBulleted className="text-white text-xl md:text-2xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-lg">View Applications</span>
+            <span className="text-white font-medium text-sm md:text-base">View Applications</span>
           </Link>
         </div>
       </div>
