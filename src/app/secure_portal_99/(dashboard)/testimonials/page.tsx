@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { deleteTestimonial } from "@/app/actions/adminActions";
+import DeleteButton from "@/components/DeleteButton";
 
 export default async function AdminTestimonialsPage() {
   const testimonials = await prisma.testimonials.findMany({
@@ -40,16 +41,13 @@ export default async function AdminTestimonialsPage() {
                       <div className="line-clamp-2" dangerouslySetInnerHTML={{ __html: test.review_text }} />
                     </td>
                     <td className="p-4 flex space-x-3 justify-end h-full items-center py-6">
-                      <form action={async () => {
-                        "use server";
-                        await deleteTestimonial(test.id);
-                      }}>
-                        <button type="submit" className="text-red-500 hover:text-red-700 p-2" title="Delete" onClick={(e) => {
-                          if (!confirm('Are you sure you want to delete this testimonial?')) e.preventDefault();
-                        }}>
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </form>
+                      <DeleteButton 
+                        onDelete={async () => {
+                          "use server";
+                          await deleteTestimonial(test.id);
+                        }} 
+                        itemType="testimonial" 
+                      />
                     </td>
                   </tr>
                 ))

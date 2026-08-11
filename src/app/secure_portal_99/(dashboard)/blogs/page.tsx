@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { deleteBlog } from "@/app/actions/adminActions";
+import DeleteButton from "@/components/DeleteButton";
 
 export default async function AdminBlogsPage() {
   const blogs = await prisma.blogs.findMany({
@@ -56,16 +57,13 @@ export default async function AdminBlogsPage() {
                     </td>
                     <td className="p-4 text-sm text-gray-500">{new Date(blog.created_at).toLocaleDateString()}</td>
                     <td className="p-4 flex space-x-3 justify-end items-center h-[80px]">
-                      <form action={async () => {
-                        "use server";
-                        await deleteBlog(blog.id);
-                      }}>
-                        <button type="submit" className="text-red-500 hover:text-red-700 p-2" title="Delete" onClick={(e) => {
-                          if (!confirm('Are you sure you want to delete this blog?')) e.preventDefault();
-                        }}>
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </form>
+                      <DeleteButton 
+                        onDelete={async () => {
+                          "use server";
+                          await deleteBlog(blog.id);
+                        }} 
+                        itemType="blog" 
+                      />
                     </td>
                   </tr>
                 ))

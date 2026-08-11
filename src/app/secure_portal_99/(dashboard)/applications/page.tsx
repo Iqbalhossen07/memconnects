@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { deleteApplication } from "@/app/actions/adminActions";
+import DeleteButton from "@/components/DeleteButton";
 
 export default async function ApplicationsPage() {
   const applications = await prisma.applications.findMany({
@@ -52,16 +53,14 @@ export default async function ApplicationsPage() {
                       <Link href={`/secure_portal_99/applications/${app.id}`} className="text-blue-500 hover:text-blue-700" title="View Details">
                         <i className="fas fa-eye"></i>
                       </Link>
-                      <form action={async () => {
-                        "use server";
-                        await deleteApplication(app.id);
-                      }}>
-                        <button type="submit" className="text-red-500 hover:text-red-700" title="Delete" onClick={(e) => {
-                          if (!confirm('Are you sure you want to delete this application?')) e.preventDefault();
-                        }}>
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </form>
+                      <DeleteButton 
+                        onDelete={async () => {
+                          "use server";
+                          await deleteApplication(app.id);
+                        }} 
+                        itemType="application"
+                        className="text-red-500 hover:text-red-700" 
+                      />
                     </td>
                   </tr>
                 ))
