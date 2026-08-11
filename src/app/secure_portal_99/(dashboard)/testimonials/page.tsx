@@ -38,12 +38,12 @@ export default async function AdminTestimonialsPage() {
               </div>
             </div>
 
-            <div className="text-gray-600 text-sm flex-1 mb-4 italic bg-gray-50 p-4 rounded-lg border border-gray-100 line-clamp-4 relative">
+            <div className="text-gray-600 text-sm flex-1 mb-4 italic bg-gray-50 p-4 rounded-lg border border-gray-100 relative overflow-hidden">
               <span className="absolute top-2 left-2 text-2xl text-gray-300 font-serif leading-none">"</span>
-              <div className="pl-4" dangerouslySetInnerHTML={{ __html: test.review_text }} />
+              <div className="pl-4 line-clamp-4" dangerouslySetInnerHTML={{ __html: test.review_text }} />
             </div>
             
-            <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center gap-2">
+            <div className="border-t border-gray-100 pt-4 mt-auto flex flex-wrap justify-end items-center gap-2">
               <ViewTestimonialButton testimonial={test} />
               <Link 
                 href={`/secure_portal_99/testimonials/${test.id}/edit`} 
