@@ -82,46 +82,46 @@ export default function ApplicationForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-10">
+      {/* Required Documents Box (Separate Section) */}
+      <div className="bg-[#FDF8F3] border-l-[6px] border-[#F2852C] p-6 md:p-8 rounded-r-xl shadow-sm mb-12">
+        <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-4">Required Documents for UK Application</h3>
+        <p className="text-gray-600 mb-6 text-sm md:text-base">Please prepare the following documents to ensure a smooth application process. You will be able to upload them in the final step of this form.</p>
         
-        {/* Required Documents Box */}
-        <div className="bg-[#FDF8F3] border-l-[6px] border-[#F2852C] p-6 md:p-8 rounded-r-xl shadow-sm mb-10">
-          <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-4">Required Documents for UK Application</h3>
-          <p className="text-gray-600 mb-6 text-sm md:text-base">Please prepare the following documents to ensure a smooth application process. You will be able to upload them in the final step of this form.</p>
-          
-          <div className="grid md:grid-cols-2 gap-y-4 gap-x-8 text-sm md:text-base text-gray-700 mb-8">
-            <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
-              <li>Passport (all used pages copy)</li>
-              <li>All official certificates and mark-sheets (SSC, HSC, BSc & Masters)</li>
-              <li>CV (with 2 professional/academic references)</li>
-              <li>Passport-size photo (1 copy)</li>
-              <li>Birth certificate (English version)</li>
-              <li>English test certificate (e.g., IELTS) or Medium of Instruction letter</li>
-            </ul>
-            <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
-              <li>Work experience/internship letters (if any)</li>
-              <li>Recommendation/Reference letters (2 copies)</li>
-              <li>Immigration history (if any)</li>
-              <li>List of universities and programs you are interested in</li>
-              <li>Emergency contact details (name, phone, email, address & relationship)</li>
-            </ul>
-          </div>
-          
-          <div className="bg-purple-100 p-6 rounded-xl border border-purple-200 text-center">
-            <h4 className="text-lg font-bold text-purple-900 mb-2 flex items-center justify-center gap-2">
-              <MdSchool className="text-xl" /> Are You a PhD Applicant?
-            </h4>
-            <p className="text-purple-700 text-sm mb-4">For PhD programs, please use our dedicated application portal for specialized assistance.</p>
-            <a href="#" className="inline-block bg-[#A855F7] hover:bg-[#9333EA] text-white px-6 py-2.5 rounded-lg font-bold transition shadow-md hover:shadow-lg">
-              Go to PhD Application
-            </a>
-          </div>
+        <div className="grid md:grid-cols-2 gap-y-4 gap-x-8 text-sm md:text-base text-gray-700 mb-8">
+          <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
+            <li>Passport (all used pages copy)</li>
+            <li>All official certificates and mark-sheets (SSC, HSC, BSc & Masters)</li>
+            <li>CV (with 2 professional/academic references)</li>
+            <li>Passport-size photo (1 copy)</li>
+            <li>Birth certificate (English version)</li>
+            <li>English test certificate (e.g., IELTS) or Medium of Instruction letter</li>
+          </ul>
+          <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
+            <li>Work experience/internship letters (if any)</li>
+            <li>Recommendation/Reference letters (2 copies)</li>
+            <li>Immigration history (if any)</li>
+            <li>List of universities and programs you are interested in</li>
+            <li>Emergency contact details (name, phone, email, address & relationship)</li>
+          </ul>
         </div>
+        
+        <div className="bg-purple-100 p-6 rounded-xl border border-purple-200 text-center">
+          <h4 className="text-lg font-bold text-purple-900 mb-2 flex items-center justify-center gap-2">
+            <MdSchool className="text-xl" /> Are You a PhD Applicant?
+          </h4>
+          <p className="text-purple-700 text-sm mb-4">For PhD programs, please use our dedicated application portal for specialized assistance.</p>
+          <a href="/phd-application" className="inline-block bg-[#A855F7] hover:bg-[#9333EA] text-white px-6 py-2.5 rounded-lg font-bold transition shadow-md hover:shadow-lg">
+            Go to PhD Application
+          </a>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="space-y-10">
 
         {/* Personal Details */}
         <div>
           <SectionTitle title="Personal Information" icon={<MdPerson className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="First Name" name="name" required />
             <InputField label="Family Name (Surname)" name="family_name" required />
             <InputField label="Email Address" name="email" type="email" required />
@@ -130,7 +130,7 @@ export default function ApplicationForm() {
             <InputField label="Nationality" name="nationality" required />
             <InputField label="Country of Birth" name="country_Of_Birth" required />
             <InputField label="Native Language" name="native_Language" required />
-            <div className="md:col-span-2">
+            <div className="md:col-span-3">
               <InputField label="Full Address (with Postal Code)" name="address_with_postal_Code" required />
             </div>
           </div>
@@ -139,16 +139,16 @@ export default function ApplicationForm() {
         {/* Passport & Visa */}
         <div>
           <SectionTitle title="Passport & Visa Details" icon={<MdFlight className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="Name as appears in passport" name="name_appears_in_passport" />
             <InputField label="Passport Number" name="passport_Number" />
             <InputField label="Passport Issue Location" name="passport_issue_location" />
             <InputField label="Issue Date" name="issue_date" type="date" />
             <InputField label="Expiry Date" name="expiry_date" type="date" />
             
-            <div className="mb-4">
-              <label className="block text-sm font-semibold text-gray-700 mb-1">Have you been to the UK in the past 10 years?</label>
-              <select name="UK_in_the_past_ten_years" className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F2852C] outline-none bg-white">
+            <div className="mb-5">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Have you been to the UK in the past 10 years?</label>
+              <select name="UK_in_the_past_ten_years" className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] outline-none bg-white transition-all">
                 <option value="">Select Option</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
@@ -162,7 +162,7 @@ export default function ApplicationForm() {
         {/* Emergency Contact */}
         <div>
           <SectionTitle title="Emergency Contact" icon={<MdContactPhone className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="Contact Name" name="emergency_contact_Name" />
             <InputField label="Relationship" name="emergency_contact_Relationship" />
             <InputField label="Telephone" name="emergency_contact_Telephone" type="tel" />
@@ -175,7 +175,7 @@ export default function ApplicationForm() {
           <SectionTitle title="Academic History" icon={<MdSchool className="text-2xl md:text-3xl" />} />
           
           <h3 className="font-bold text-gray-700 mb-4 text-lg">Masters / PG (If applicable)</h3>
-          <div className="grid md:grid-cols-2 gap-x-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Institution" name="masters_Institution" />
             <InputField label="Course" name="masters_Course" />
             <InputField label="Result/CGPA" name="masters_Results" />
@@ -183,7 +183,7 @@ export default function ApplicationForm() {
           </div>
 
           <h3 className="font-bold text-gray-700 mb-4 text-lg">Undergraduate / Bachelor</h3>
-          <div className="grid md:grid-cols-2 gap-x-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Institution" name="under_Institution" />
             <InputField label="Course" name="under_Course" />
             <InputField label="Result/CGPA" name="under_Result" />
@@ -191,7 +191,7 @@ export default function ApplicationForm() {
           </div>
 
           <h3 className="font-bold text-gray-700 mb-4 text-lg">HSC / A-Levels</h3>
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="Institution" name="HSC_Institution" />
             <InputField label="Result/GPA" name="HSC_Result" />
             <InputField label="Passing Year (End Date)" name="HSC_End_Date" type="date" />
@@ -201,7 +201,7 @@ export default function ApplicationForm() {
         {/* Academic Interests & English */}
         <div>
           <SectionTitle title="Academic Interests & English Test" icon={<MdLanguage className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6 mb-6">
+          <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Level of Study (Applying for)" name="Academic_interests_Level_of_study" required />
             <InputField label="Preferred Programme/Course" name="Programme" required />
           </div>
@@ -221,7 +221,7 @@ export default function ApplicationForm() {
         {/* Employment */}
         <div>
           <SectionTitle title="Employment History" icon={<MdWork className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="Job Title" name="Job_title" />
             <InputField label="Organization Name" name="Name_of_organization" />
             <InputField label="From Date" name="From_date" type="date" />
@@ -235,7 +235,7 @@ export default function ApplicationForm() {
         {/* Documents */}
         <div>
           <SectionTitle title="Document Uploads" icon={<MdFolder className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-2 gap-x-6">
+          <div className="grid md:grid-cols-3 gap-x-6">
             <FileField label="Passport Copy (All used pages)" name="passport_all_used_copy" />
             <FileField label="All Official Certificates & Marksheets" name="all_official_certificates_marksheets" />
             <FileField label="CV & Two References" name="cv_two_references" />
