@@ -12,8 +12,8 @@ export default async function ApplicationsPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Applications</h1>
-          <p className="text-gray-500 mt-1">Manage all submitted student applications.</p>
+          <h1 className="text-3xl font-bold text-black">Applications</h1>
+          <p className="text-black mt-1">Manage all submitted student applications.</p>
         </div>
       </div>
 
@@ -21,46 +21,50 @@ export default async function ApplicationsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="p-4 font-semibold text-gray-600">ID</th>
-                <th className="p-4 font-semibold text-gray-600">Name</th>
-                <th className="p-4 font-semibold text-gray-600">Email</th>
-                <th className="p-4 font-semibold text-gray-600">Phone</th>
-                <th className="p-4 font-semibold text-gray-600">Date</th>
-                <th className="p-4 font-semibold text-gray-600">Status</th>
-                <th className="p-4 font-semibold text-gray-600">Actions</th>
+              <tr className="bg-gray-50 border-b border-gray-100 hidden md:table-row">
+                <th className="p-4 font-semibold text-black">ID</th>
+                <th className="p-4 font-semibold text-black">Name</th>
+                <th className="p-4 font-semibold text-black">Email</th>
+                <th className="p-4 font-semibold text-black">Phone</th>
+                <th className="p-4 font-semibold text-black">Date</th>
+                <th className="p-4 font-semibold text-black">Status</th>
+                <th className="p-4 font-semibold text-black">Actions</th>
               </tr>
             </thead>
             <tbody>
               {applications.length > 0 ? (
                 applications.map((app) => (
-                  <tr key={app.id} className="border-b border-gray-50 hover:bg-gray-50 transition">
-                    <td className="p-4 text-sm text-gray-500">#{app.id}</td>
-                    <td className="p-4 font-medium text-gray-800">{app.name} {app.family_name}</td>
-                    <td className="p-4 text-sm text-gray-500">{app.email}</td>
-                    <td className="p-4 text-sm text-gray-500">{app.phone}</td>
-                    <td className="p-4 text-sm text-gray-500">{new Date(app.submission_date).toLocaleDateString()}</td>
-                    <td className="p-4">
+                  <tr key={app.id} className="border-b border-gray-50 hover:bg-gray-50 transition flex flex-col md:table-row p-4 md:p-0 mb-4 md:mb-0 bg-white md:bg-transparent rounded-lg shadow-sm md:shadow-none border md:border-b">
+                    <td className="p-2 md:p-4 text-sm text-black flex justify-between md:table-cell"><span className="md:hidden font-bold">ID:</span> #{app.id}</td>
+                    <td className="p-2 md:p-4 font-medium text-black flex justify-between md:table-cell"><span className="md:hidden font-bold">Name:</span> {app.name} {app.family_name}</td>
+                    <td className="p-2 md:p-4 text-sm text-black flex justify-between md:table-cell"><span className="md:hidden font-bold">Email:</span> {app.email}</td>
+                    <td className="p-2 md:p-4 text-sm text-black flex justify-between md:table-cell"><span className="md:hidden font-bold">Phone:</span> {app.phone}</td>
+                    <td className="p-2 md:p-4 text-sm text-black flex justify-between md:table-cell"><span className="md:hidden font-bold">Date:</span> {new Date(app.submission_date).toLocaleDateString()}</td>
+                    <td className="p-2 md:p-4 flex justify-between items-center md:table-cell">
+                      <span className="md:hidden font-bold text-black">Status:</span>
                       <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${
-                        app.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
-                        app.status === 'Approved' ? 'bg-green-100 text-green-700' :
-                        'bg-red-100 text-red-700'
+                        app.status === 'Pending' ? 'bg-[#FFF9C4] text-black' :
+                        app.status === 'Approved' ? 'bg-[#C8E6C9] text-black' :
+                        'bg-[#FFCDD2] text-black'
                       }`}>
                         {app.status || 'Pending'}
                       </span>
                     </td>
-                    <td className="p-4 flex space-x-3">
-                      <Link href={`/secure_portal_99/applications/${app.id}`} className="text-blue-500 hover:text-blue-700" title="View Details">
-                        <i className="fas fa-eye"></i>
+                    <td className="p-2 md:p-4 flex justify-end md:justify-start space-x-4 items-center">
+                      <Link href={`/secure_portal_99/applications/${app.id}`} className="text-blue-600 hover:text-blue-800 flex items-center justify-center p-2 rounded-full hover:bg-blue-50 transition" title="View Details">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                       </Link>
-                      <DeleteButton 
-                        onDelete={async () => {
-                          "use server";
-                          await deleteApplication(app.id);
-                        }} 
-                        itemType="application"
-                        className="text-red-500 hover:text-red-700" 
-                      />
+                      <div className="text-red-500 hover:text-red-700 flex flex-col items-center cursor-pointer text-xs group">
+                        <DeleteButton 
+                          onDelete={async () => {
+                            "use server";
+                            await deleteApplication(app.id);
+                          }} 
+                          itemType="application"
+                          className="text-red-500 hover:text-red-700" 
+                        />
+                        <span className="mt-1 group-hover:underline font-medium">Delete</span>
+                      </div>
                     </td>
                   </tr>
                 ))
