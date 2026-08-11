@@ -51,11 +51,11 @@ export default function ApplicationForm() {
   );
 
   const SectionTitle = ({ title, icon }: { title: string, icon: React.ReactNode }) => (
-    <div className="border-b border-gray-200 pb-4 mb-8 mt-12 first:mt-0 flex items-center gap-4">
-      <div className="bg-[#f97316] text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shrink-0 shadow-md">
+    <div className="border-b border-gray-200 pb-3 mb-6 mt-10 first:mt-0 flex items-center gap-3">
+      <div className="bg-[#f97316] text-white w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm">
         {icon}
       </div>
-      <h2 className="text-2xl md:text-4xl font-extrabold text-slate-800 tracking-tight">{title}</h2>
+      <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight">{title}</h2>
     </div>
   );
 
@@ -118,99 +118,140 @@ export default function ApplicationForm() {
 
       <form onSubmit={handleSubmit} className="space-y-10">
 
-        {/* Personal Details */}
+        {/* Personal Details & Passport */}
         <div>
-          <SectionTitle title="Personal Information" icon={<MdPerson className="text-2xl md:text-3xl" />} />
+          <SectionTitle title="Personal Information" icon={<MdPerson className="text-xl md:text-2xl" />} />
           <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="First Name" name="name" required />
-            <InputField label="Family Name (Surname)" name="family_name" required />
-            <InputField label="Email Address" name="email" type="email" required />
+            <InputField label="Family Name" name="family_name" required />
+            <InputField label="Email" name="email" type="email" required />
             <InputField label="Phone Number" name="phone" type="tel" required />
             <InputField label="Date of Birth" name="date_Of_Birth" type="date" required />
             <InputField label="Nationality" name="nationality" required />
             <InputField label="Country of Birth" name="country_Of_Birth" required />
             <InputField label="Native Language" name="native_Language" required />
-            <div className="md:col-span-3">
-              <InputField label="Full Address (with Postal Code)" name="address_with_postal_Code" required />
-            </div>
-          </div>
-        </div>
-
-        {/* Passport & Visa */}
-        <div>
-          <SectionTitle title="Passport & Visa Details" icon={<MdFlight className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-3 gap-x-6">
-            <InputField label="Name as appears in passport" name="name_appears_in_passport" />
+            <InputField label="Name as it appears in passport" name="name_appears_in_passport" />
             <InputField label="Passport Number" name="passport_Number" />
             <InputField label="Passport Issue Location" name="passport_issue_location" />
             <InputField label="Issue Date" name="issue_date" type="date" />
             <InputField label="Expiry Date" name="expiry_date" type="date" />
-            
+            <div className="md:col-span-2">
+              <InputField label="Address with Postal Code" name="address_with_postal_Code" required />
+            </div>
+          </div>
+        </div>
+
+        {/* Emergency Contact */}
+        <div>
+          <SectionTitle title="Emergency Contact Details" icon={<MdContactPhone className="text-xl md:text-2xl" />} />
+          <div className="grid md:grid-cols-3 gap-x-6">
+            <InputField label="Contact Name" name="emergency_contact_Name" />
+            <InputField label="Contact Telephone" name="emergency_contact_Telephone" type="tel" />
+            <InputField label="Contact Email" name="emergency_contact_Email" type="email" />
+            <InputField label="Relationship" name="emergency_contact_Relationship" />
+          </div>
+        </div>
+
+        {/* Travel & Immigration History */}
+        <div>
+          <SectionTitle title="Travel & Immigration History" icon={<MdFlight className="text-xl md:text-2xl" />} />
+          <div className="grid md:grid-cols-3 gap-x-6">
             <div className="mb-5">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Have you been to the UK in the past 10 years?</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Applied for UK leave in the past 10 years?</label>
               <select name="UK_in_the_past_ten_years" className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] outline-none bg-white transition-all">
                 <option value="">Select Option</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
             </div>
-            <InputField label="Visa Type (If applicable)" name="Visa_type" />
+            <InputField label="Date of Arrival" name="Date_of_Arrival" type="date" />
+            <InputField label="Date of Departure" name="Date_of_Departure" type="date" />
+            <InputField label="Visa Start Date" name="Visa_Start_date" type="date" />
             <InputField label="Visa Expiry Date" name="Visa_Expiry_date" type="date" />
-          </div>
-        </div>
-
-        {/* Emergency Contact */}
-        <div>
-          <SectionTitle title="Emergency Contact" icon={<MdContactPhone className="text-2xl md:text-3xl" />} />
-          <div className="grid md:grid-cols-3 gap-x-6">
-            <InputField label="Contact Name" name="emergency_contact_Name" />
-            <InputField label="Relationship" name="emergency_contact_Relationship" />
-            <InputField label="Telephone" name="emergency_contact_Telephone" type="tel" />
-            <InputField label="Email" name="emergency_contact_Email" type="email" />
+            <div className="mb-5">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Do you need a visa to stay in the UK?</label>
+              <select name="visa_to_stay_in_the_UK" className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] outline-none bg-white transition-all">
+                <option value="">Select Option</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+            <InputField label="Refusal Type (if any)" name="Refusal_type" />
           </div>
         </div>
 
         {/* Academic History */}
         <div>
-          <SectionTitle title="Academic History" icon={<MdSchool className="text-2xl md:text-3xl" />} />
+          <SectionTitle title="Academic History" icon={<MdSchool className="text-xl md:text-2xl" />} />
           
-          <h3 className="font-bold text-gray-700 mb-4 text-lg">Masters / PG (If applicable)</h3>
+          <h3 className="font-bold text-[#F2852C] mb-4 text-base bg-orange-50 inline-block px-3 py-1 rounded-lg">Masters/MBA</h3>
           <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Institution" name="masters_Institution" />
             <InputField label="Course" name="masters_Course" />
-            <InputField label="Result/CGPA" name="masters_Results" />
-            <InputField label="Passing Year (End Date)" name="masters_End_Date" type="date" />
+            <InputField label="Level of Study" name="masters_Level_of_Study" />
+            <InputField label="Result" name="masters_Results" />
+            <InputField label="Start Date" name="masters_Start_date" type="date" />
+            <InputField label="End Date" name="masters_End_Date" type="date" />
           </div>
 
-          <h3 className="font-bold text-gray-700 mb-4 text-lg">Undergraduate / Bachelor</h3>
+          <h3 className="font-bold text-[#F2852C] mb-4 text-base bg-orange-50 inline-block px-3 py-1 rounded-lg">Undergraduate</h3>
           <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Institution" name="under_Institution" />
             <InputField label="Course" name="under_Course" />
-            <InputField label="Result/CGPA" name="under_Result" />
-            <InputField label="Passing Year (End Date)" name="under_End_Date" type="date" />
+            <InputField label="Level of Study" name="under_Level_of_Study" />
+            <InputField label="Result" name="under_Result" />
+            <InputField label="Start Date" name="under_Start_date" type="date" />
+            <InputField label="End Date" name="under_End_Date" type="date" />
           </div>
 
-          <h3 className="font-bold text-gray-700 mb-4 text-lg">HSC / A-Levels</h3>
-          <div className="grid md:grid-cols-3 gap-x-6">
+          <h3 className="font-bold text-[#F2852C] mb-4 text-base bg-orange-50 inline-block px-3 py-1 rounded-lg">A-Level / HSC</h3>
+          <div className="grid md:grid-cols-3 gap-x-6 mb-6">
             <InputField label="Institution" name="HSC_Institution" />
-            <InputField label="Result/GPA" name="HSC_Result" />
-            <InputField label="Passing Year (End Date)" name="HSC_End_Date" type="date" />
+            <InputField label="Group/Course" name="HSC_Course" />
+            <InputField label="Level of Study" name="HSC_Level_of_Study" />
+            <InputField label="Result" name="HSC_Result" />
+            <InputField label="Start Date" name="HSC_Start_date" type="date" />
+            <InputField label="End Date" name="HSC_End_Date" type="date" />
+          </div>
+
+          <h3 className="font-bold text-[#F2852C] mb-4 text-base bg-orange-50 inline-block px-3 py-1 rounded-lg">O-Level / SSC</h3>
+          <div className="grid md:grid-cols-3 gap-x-6">
+            <InputField label="Institution" name="SSC_Institution" />
+            <InputField label="Group/Course" name="SSC_Course" />
+            <InputField label="Level of Study" name="SSC_Level_of_Study" />
+            <InputField label="Result" name="SSC_Result" />
+            <InputField label="Start Date" name="SSC_Start_date" type="date" />
+            <InputField label="End Date" name="SSC_End_Date" type="date" />
           </div>
         </div>
 
-        {/* Academic Interests & English */}
+        {/* Academic Interests */}
         <div>
-          <SectionTitle title="Academic Interests & English Test" icon={<MdLanguage className="text-2xl md:text-3xl" />} />
+          <SectionTitle title="Academic Interests" icon={<MdLanguage className="text-xl md:text-2xl" />} />
           <div className="grid md:grid-cols-3 gap-x-6 mb-6">
-            <InputField label="Level of Study (Applying for)" name="Academic_interests_Level_of_study" required />
-            <InputField label="Preferred Programme/Course" name="Programme" required />
+            <InputField label="Level of study (e.g., Masters)" name="Academic_interests_Level_of_study" required />
+            <InputField label="Discipline (e.g., Engineering)" name="Discipline" />
+            <InputField label="Programme (e.g., M.Sc. in AI)" name="Programme" required />
+            <InputField label="Intended Start date" name="interests_Start_date" type="date" />
+            <InputField label="Preferred Location (e.g., London, UK)" name="Location" />
           </div>
+        </div>
 
-          <h3 className="font-bold text-gray-700 mb-4 text-lg">English Language Test (IELTS/PTE/TOEFL)</h3>
+        {/* English Language Proficiency */}
+        <div>
+          <SectionTitle title="English Language Proficiency" icon={<MdLanguage className="text-xl md:text-2xl" />} />
+          <div className="grid md:grid-cols-3 gap-x-6 mb-6">
+            <InputField label="Duo lingo" name="Duo_lingo" />
+            <InputField label="GMAT" name="GMAT" />
+            <InputField label="IELTS" name="IELTS" />
+            <InputField label="IELTS UKVI" name="IELTS_UKVI" />
+            <InputField label="PTE" name="PTE" />
+            <InputField label="TOFEL" name="TOFEL" />
+          </div>
+          <h3 className="font-bold text-gray-700 mb-4 text-base">Detailed Scores (if applicable)</h3>
           <div className="grid md:grid-cols-3 gap-x-6">
-            <InputField label="Test Type (e.g. IELTS UKVI)" name="IELTS_UKVI" />
+            <InputField label="Date of test" name="Date_of_test" type="date" />
             <InputField label="Overall Score" name="Overall_Score" />
-            <InputField label="Date of Test" name="Date_of_test" type="date" />
             <InputField label="Reading" name="Reading" />
             <InputField label="Writing" name="Writing" />
             <InputField label="Listening" name="Listening" />
@@ -220,27 +261,31 @@ export default function ApplicationForm() {
 
         {/* Employment */}
         <div>
-          <SectionTitle title="Employment History" icon={<MdWork className="text-2xl md:text-3xl" />} />
+          <SectionTitle title="Work Details (If any)" icon={<MdWork className="text-xl md:text-2xl" />} />
           <div className="grid md:grid-cols-3 gap-x-6">
             <InputField label="Job Title" name="Job_title" />
-            <InputField label="Organization Name" name="Name_of_organization" />
+            <InputField label="Name of Organization" name="Name_of_organization" />
+            <InputField label="Address of Organization" name="Address_of_organization" />
+            <InputField label="Phone Number" name="work_Phone_number" type="tel" />
             <InputField label="From Date" name="From_date" type="date" />
             <InputField label="To Date" name="To_date" type="date" />
-            <div className="md:col-span-2">
-              <InputField label="Organization Address" name="Address_of_organization" />
+            
+            <div className="mb-5 flex items-center md:col-span-3 mt-2">
+              <input type="checkbox" id="Student_currently_works" name="Student_currently_works" value="Yes" className="w-5 h-5 text-[#F2852C] bg-white border-gray-300 rounded focus:ring-[#F2852C]" />
+              <label htmlFor="Student_currently_works" className="ml-3 text-sm font-semibold text-gray-700">I currently work here</label>
             </div>
           </div>
         </div>
 
         {/* Documents */}
         <div>
-          <SectionTitle title="Document Uploads" icon={<MdFolder className="text-2xl md:text-3xl" />} />
+          <SectionTitle title="Upload Documents" icon={<MdFolder className="text-xl md:text-2xl" />} />
           <div className="grid md:grid-cols-3 gap-x-6">
-            <FileField label="Passport Copy (All used pages)" name="passport_all_used_copy" />
-            <FileField label="All Official Certificates & Marksheets" name="all_official_certificates_marksheets" />
-            <FileField label="CV & Two References" name="cv_two_references" />
+            <FileField label="Passport (all used pages)" name="passport_all_used_copy" />
+            <FileField label="Academic Certificates & Marksheets" name="all_official_certificates_marksheets" />
+            <FileField label="CV / Resume (with references)" name="cv_two_references" />
             <FileField label="Passport Size Photo" name="passport_photo" />
-            <FileField label="Other Documents (If any)" name="others_document" />
+            <FileField label="Other Documents" name="others_document" />
           </div>
         </div>
 
