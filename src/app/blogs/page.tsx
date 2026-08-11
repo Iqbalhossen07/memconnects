@@ -44,7 +44,7 @@ export default async function BlogsPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsData.length > 0 ? (
               blogsData.map((post) => {
-                const imagePath = post.featured_image ? `/uploads/blogs/${post.featured_image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
+                const imagePath = post.featured_image ? `/${post.featured_image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
                 return (
                   <div key={post.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
                     <div className="relative overflow-hidden">

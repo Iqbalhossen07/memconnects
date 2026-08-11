@@ -26,7 +26,7 @@ export default async function BlogDetails({ params }: { params: Promise<{ id: st
     take: 4,
   });
 
-  const mainImagePath = post.featured_image ? `/uploads/blogs/${post.featured_image}` : undefined;
+  const mainImagePath = post.featured_image ? `/${post.featured_image}` : undefined;
 
   return (
     <main>
@@ -86,7 +86,7 @@ export default async function BlogDetails({ params }: { params: Promise<{ id: st
                   <h3 className="text-xl font-bold mb-4">Recent Posts</h3>
                   <div className="space-y-4">
                     {recentPosts.map(recent => {
-                      const img = recent.featured_image ? `/uploads/blogs/${recent.featured_image}` : 'https://placehold.co/100x70/f0f0f0/ccc?text=Image';
+                      const img = recent.featured_image ? `/${recent.featured_image}` : 'https://placehold.co/100x70/f0f0f0/ccc?text=Image';
                       return (
                         <Link key={recent.id} href={`/blogs/${recent.id}`} className="flex items-center group space-x-4">
                           <img src={img} alt={recent.title} className="w-20 h-16 object-cover rounded-lg flex-shrink-0" 
