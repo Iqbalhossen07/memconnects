@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { loginAdmin } from "@/app/actions/authActions";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { loginAdmin } from "@/app/actions/authActions";
 
 export default function AdminLogin() {
   const [error, setError] = useState("");
@@ -27,7 +28,15 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="bg-gray-50 pt-10 pb-20 sm:px-6 lg:px-8">
+    <div className="bg-gray-50 min-h-screen flex flex-col pt-10 pb-20 sm:px-6 lg:px-8">
+      
+      {/* Clickable Logo to Home */}
+      <div className="sm:mx-auto sm:w-full sm:max-w-md mb-6">
+        <Link href="/" className="flex justify-center hover:opacity-80 transition">
+          <img src="/logo_black.png" alt="Mem Connects" className="h-20 object-contain" />
+        </Link>
+      </div>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-10 px-4 shadow-xl sm:rounded-2xl sm:px-10 border border-gray-100 relative overflow-hidden">
           {/* Decorative top border */}
