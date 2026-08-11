@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
+import { getSession } from "@/lib/auth";
+import WelcomeBanner from "./WelcomeBanner";
 import { 
   MdOutlineAssignment, 
   MdOutlineArticle, 
@@ -9,6 +11,9 @@ import {
 } from "react-icons/md";
 
 export default async function AdminDashboard() {
+  const session = await getSession();
+  const adminName = session?.name || "Admin";
+
   const blogsCount = await prisma.blogs.count();
   const testimonialsCount = await prisma.testimonials.count();
   const applicationsCount = await prisma.applications.count();
@@ -17,14 +22,7 @@ export default async function AdminDashboard() {
     <div className="max-w-7xl mx-auto space-y-8">
       
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-[#6D5795] to-[#8A56F6] rounded-2xl p-6 md:p-10 shadow-lg mb-8 md:mb-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
-        <div className="relative z-10 text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-extrabold mb-2 text-white">Welcome Back, Admin! 👋</h1>
-          <p className="text-purple-100 text-sm md:text-lg">Here's what's happening with your applications and portal today.</p>
-        </div>
-      </div>
+      <WelcomeBanner adminName={adminName} />
 
       {/* Overview Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-10">
