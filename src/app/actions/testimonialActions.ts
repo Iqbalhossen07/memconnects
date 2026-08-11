@@ -24,3 +24,26 @@ export async function addTestimonial(prevState: any, formData: FormData) {
     return { error: "Failed to add testimonial. Please try again." };
   }
 }
+
+export async function updateTestimonial(id: number, prevState: any, formData: FormData) {
+  try {
+    const student_name = formData.get("student_name") as string;
+    const review_text = formData.get("review_text") as string;
+
+    await prisma.testimonials.update({
+      where: { id },
+      data: {
+        student_name,
+        review_text,
+      },
+    });
+
+    revalidatePath("/secure_portal_99/testimonials");
+    revalidatePath("/");
+    
+    return { success: true };
+  } catch (error: any) {
+    console.error("Update testimonial error:", error);
+    return { error: "Failed to update testimonial. Please try again." };
+  }
+}
