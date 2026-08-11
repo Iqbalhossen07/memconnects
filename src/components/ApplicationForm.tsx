@@ -2,6 +2,15 @@
 
 import { useState } from "react";
 import { submitApplication } from "@/app/actions/application";
+import { 
+  MdPerson, 
+  MdFlight, 
+  MdContactPhone, 
+  MdSchool, 
+  MdLanguage, 
+  MdWork, 
+  MdFolder
+} from "react-icons/md";
 
 export default function ApplicationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,22 +37,25 @@ export default function ApplicationForm() {
   }
 
   const InputField = ({ label, name, type = "text", required = false }: any) => (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label} {required && <span className="text-red-500">*</span>}</label>
-      <input type={type} name={name} required={required} className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F2852C] focus:border-transparent outline-none transition bg-white" />
+    <div className="mb-5">
+      <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
+      <input type={type} name={name} required={required} className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] focus:border-transparent outline-none transition-all bg-white" />
     </div>
   );
 
   const FileField = ({ label, name, required = false }: any) => (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label} {required && <span className="text-red-500">*</span>}</label>
-      <input type="file" name={name} required={required} className="w-full text-sm text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#F2852C] hover:file:bg-orange-100 transition cursor-pointer border border-gray-300 rounded-lg bg-white" />
+    <div className="mb-5">
+      <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
+      <input type="file" name={name} required={required} className="w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#F2852C] hover:file:bg-orange-100 transition-all cursor-pointer border border-gray-200 rounded-xl shadow-sm focus:shadow-md bg-white" />
     </div>
   );
 
-  const SectionTitle = ({ title }: { title: string }) => (
-    <div className="border-b-2 border-gray-100 pb-3 mb-6 mt-10 first:mt-0">
-      <h2 className="text-2xl font-bold text-[#6D5795]">{title}</h2>
+  const SectionTitle = ({ title, icon }: { title: string, icon: React.ReactNode }) => (
+    <div className="border-b border-gray-200 pb-4 mb-8 mt-12 first:mt-0 flex items-center gap-4">
+      <div className="bg-[#f97316] text-white w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shrink-0 shadow-md">
+        {icon}
+      </div>
+      <h2 className="text-2xl md:text-4xl font-extrabold text-slate-800 tracking-tight">{title}</h2>
     </div>
   );
 
@@ -70,11 +82,45 @@ export default function ApplicationForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-10">
         
+        {/* Required Documents Box */}
+        <div className="bg-[#FDF8F3] border-l-[6px] border-[#F2852C] p-6 md:p-8 rounded-r-xl shadow-sm mb-10">
+          <h3 className="text-xl md:text-2xl font-bold text-slate-800 mb-4">Required Documents for UK Application</h3>
+          <p className="text-gray-600 mb-6 text-sm md:text-base">Please prepare the following documents to ensure a smooth application process. You will be able to upload them in the final step of this form.</p>
+          
+          <div className="grid md:grid-cols-2 gap-y-4 gap-x-8 text-sm md:text-base text-gray-700 mb-8">
+            <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
+              <li>Passport (all used pages copy)</li>
+              <li>All official certificates and mark-sheets (SSC, HSC, BSc & Masters)</li>
+              <li>CV (with 2 professional/academic references)</li>
+              <li>Passport-size photo (1 copy)</li>
+              <li>Birth certificate (English version)</li>
+              <li>English test certificate (e.g., IELTS) or Medium of Instruction letter</li>
+            </ul>
+            <ul className="list-disc pl-5 space-y-3 marker:text-gray-400">
+              <li>Work experience/internship letters (if any)</li>
+              <li>Recommendation/Reference letters (2 copies)</li>
+              <li>Immigration history (if any)</li>
+              <li>List of universities and programs you are interested in</li>
+              <li>Emergency contact details (name, phone, email, address & relationship)</li>
+            </ul>
+          </div>
+          
+          <div className="bg-purple-100 p-6 rounded-xl border border-purple-200 text-center">
+            <h4 className="text-lg font-bold text-purple-900 mb-2 flex items-center justify-center gap-2">
+              <MdSchool className="text-xl" /> Are You a PhD Applicant?
+            </h4>
+            <p className="text-purple-700 text-sm mb-4">For PhD programs, please use our dedicated application portal for specialized assistance.</p>
+            <a href="#" className="inline-block bg-[#A855F7] hover:bg-[#9333EA] text-white px-6 py-2.5 rounded-lg font-bold transition shadow-md hover:shadow-lg">
+              Go to PhD Application
+            </a>
+          </div>
+        </div>
+
         {/* Personal Details */}
         <div>
-          <SectionTitle title="1. Personal Details" />
+          <SectionTitle title="Personal Information" icon={<MdPerson className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6">
             <InputField label="First Name" name="name" required />
             <InputField label="Family Name (Surname)" name="family_name" required />
@@ -92,7 +138,7 @@ export default function ApplicationForm() {
 
         {/* Passport & Visa */}
         <div>
-          <SectionTitle title="2. Passport & Visa Details" />
+          <SectionTitle title="Passport & Visa Details" icon={<MdFlight className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6">
             <InputField label="Name as appears in passport" name="name_appears_in_passport" />
             <InputField label="Passport Number" name="passport_Number" />
@@ -115,7 +161,7 @@ export default function ApplicationForm() {
 
         {/* Emergency Contact */}
         <div>
-          <SectionTitle title="3. Emergency Contact" />
+          <SectionTitle title="Emergency Contact" icon={<MdContactPhone className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6">
             <InputField label="Contact Name" name="emergency_contact_Name" />
             <InputField label="Relationship" name="emergency_contact_Relationship" />
@@ -126,7 +172,7 @@ export default function ApplicationForm() {
 
         {/* Academic History */}
         <div>
-          <SectionTitle title="4. Academic History" />
+          <SectionTitle title="Academic History" icon={<MdSchool className="text-2xl md:text-3xl" />} />
           
           <h3 className="font-bold text-gray-700 mb-4 text-lg">Masters / PG (If applicable)</h3>
           <div className="grid md:grid-cols-2 gap-x-6 mb-6">
@@ -154,7 +200,7 @@ export default function ApplicationForm() {
 
         {/* Academic Interests & English */}
         <div>
-          <SectionTitle title="5. Academic Interests & English Test" />
+          <SectionTitle title="Academic Interests & English Test" icon={<MdLanguage className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6 mb-6">
             <InputField label="Level of Study (Applying for)" name="Academic_interests_Level_of_study" required />
             <InputField label="Preferred Programme/Course" name="Programme" required />
@@ -174,7 +220,7 @@ export default function ApplicationForm() {
 
         {/* Employment */}
         <div>
-          <SectionTitle title="6. Employment History" />
+          <SectionTitle title="Employment History" icon={<MdWork className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6">
             <InputField label="Job Title" name="Job_title" />
             <InputField label="Organization Name" name="Name_of_organization" />
@@ -188,7 +234,7 @@ export default function ApplicationForm() {
 
         {/* Documents */}
         <div>
-          <SectionTitle title="7. Document Uploads" />
+          <SectionTitle title="Document Uploads" icon={<MdFolder className="text-2xl md:text-3xl" />} />
           <div className="grid md:grid-cols-2 gap-x-6">
             <FileField label="Passport Copy (All used pages)" name="passport_all_used_copy" />
             <FileField label="All Official Certificates & Marksheets" name="all_official_certificates_marksheets" />
