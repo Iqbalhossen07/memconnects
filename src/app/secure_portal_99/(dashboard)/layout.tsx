@@ -1,14 +1,9 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import AdminLogoutButton from "./AdminLogoutButton";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
-
-  if (!session) {
-    redirect("/secure_portal_99/login");
-  }
 
   return (
     <div className="flex h-screen bg-gray-100 font-sans">
@@ -45,7 +40,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <h2 className="text-xl font-bold text-gray-800">Secure Portal</h2>
           <div className="flex items-center space-x-4">
             <span className="text-sm font-medium text-gray-600 bg-gray-100 px-4 py-1.5 rounded-full">
-              <i className="fas fa-user-circle mr-2"></i> {session.name}
+              <i className="fas fa-user-circle mr-2"></i> {session?.name || "Admin"}
             </span>
           </div>
         </header>
