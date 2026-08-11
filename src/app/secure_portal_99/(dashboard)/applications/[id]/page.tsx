@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { updateApplicationStatus } from "@/app/actions/adminActions";
+import StatusUpdater from "@/components/StatusUpdater";
 
 export default async function ApplicationDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -49,20 +49,7 @@ export default async function ApplicationDetailsPage({ params }: { params: Promi
         </div>
         
         <div className="flex items-center space-x-4">
-          <form action={async (formData) => {
-            "use server";
-            await updateApplicationStatus(app.id, formData.get("status") as string);
-          }} className="flex items-center space-x-2">
-            <select name="status" defaultValue={app.status} className="border border-gray-300 rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-[#F2852C]">
-              <option value="Pending">Pending</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-            <button type="submit" className="bg-[#6D5795] text-white px-4 py-2 rounded-lg font-medium hover:bg-[#5a487c] transition">
-              Update Status
-            </button>
-          </form>
+          <StatusUpdater appId={app.id} currentStatus={app.status || "Pending"} />
         </div>
       </div>
 

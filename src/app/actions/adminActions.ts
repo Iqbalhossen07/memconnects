@@ -74,7 +74,28 @@ export async function updateApplicationStatus(id: number, status: string) {
         `,
       };
 
+      const adminMailOptions = {
+        from: `"Mem Connects System" <${process.env.SMTP_USER}>`,
+        to: process.env.SMTP_USER,
+        subject: `Application Status Updated: ${app.name} ${app.family_name}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+            <div style="background-color: #F2852C; padding: 20px; text-align: center;">
+              <h2 style="color: #ffffff; margin: 0;">Status Updated</h2>
+            </div>
+            <div style="padding: 30px; background-color: #ffffff;">
+              <p style="color: #374151; font-size: 16px;">The status for <strong>${app.name} ${app.family_name}</strong>'s application has been successfully updated to <strong>${status}</strong>.</p>
+              <p style="color: #4b5563; font-size: 16px;"><strong>Applicant Email:</strong> ${app.email}</p>
+            </div>
+            <div style="background-color: #f3f4f6; padding: 15px; text-align: center; color: #6b7280; font-size: 12px;">
+              <p style="margin: 0;">This is an automated notification from Mem Connects Application Portal.</p>
+            </div>
+          </div>
+        `,
+      };
+
       await transporter.sendMail(mailOptions);
+      await transporter.sendMail(adminMailOptions);
     } catch (error) {
       console.error("Error sending status update email", error);
     }
@@ -82,6 +103,8 @@ export async function updateApplicationStatus(id: number, status: string) {
 
   revalidatePath(`/secure_portal_99/applications/${id}`);
   revalidatePath("/secure_portal_99/applications");
+  
+  return { success: true };
 }
 
 export async function deleteBlog(id: number) {
