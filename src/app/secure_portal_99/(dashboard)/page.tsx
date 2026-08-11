@@ -4,7 +4,7 @@ import {
   MdOutlineAssignment, 
   MdOutlineArticle, 
   MdOutlineStar,
-  MdAddCircle,
+  MdAdd,
   MdFormatListBulleted
 } from "react-icons/md";
 
@@ -14,70 +14,67 @@ export default async function AdminDashboard() {
   const applicationsCount = await prisma.applications.count();
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-6 md:mb-10">
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-800 tracking-tight">Dashboard Overview</h1>
-        <p className="text-gray-500 mt-1 md:mt-2 text-sm md:text-lg">Welcome to the MemConnects admin control panel.</p>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-10">
-        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300">
-          <div className="order-2 md:order-1 mt-2 md:mt-0">
-            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Total Applications</p>
-            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{applicationsCount}</p>
+    <div className="max-w-7xl mx-auto space-y-8">
+      
+      {/* Overview Cards (Styled exactly like the 3rd image) */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 bg-blue-100/50 text-blue-600 rounded-lg flex items-center justify-center">
+              <MdOutlineAssignment className="text-lg" />
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Total Applications</h3>
           </div>
-          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-blue-50 text-blue-500 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <MdOutlineAssignment className="text-xl md:text-3xl" />
-          </div>
+          <p className="text-2xl font-medium text-gray-900">{applicationsCount}</p>
         </div>
 
-        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300">
-          <div className="order-2 md:order-1 mt-2 md:mt-0">
-            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Published Blogs</p>
-            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{blogsCount}</p>
+        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 bg-emerald-100/50 text-emerald-600 rounded-lg flex items-center justify-center">
+              <MdOutlineArticle className="text-lg" />
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Published Blogs</h3>
           </div>
-          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-emerald-50 text-emerald-500 rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <MdOutlineArticle className="text-xl md:text-3xl" />
-          </div>
+          <p className="text-2xl font-medium text-gray-900">{blogsCount}</p>
         </div>
 
-        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300 col-span-2 md:col-span-1">
-          <div className="order-2 md:order-1 mt-2 md:mt-0">
-            <p className="text-[10px] md:text-sm font-semibold text-gray-400 uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Testimonials</p>
-            <p className="text-3xl md:text-5xl font-extrabold text-gray-800">{testimonialsCount}</p>
+        <div className="bg-[#F8FAFC] p-5 rounded-xl border border-gray-100/50 col-span-2 md:col-span-1">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 bg-purple-100/50 text-purple-600 rounded-lg flex items-center justify-center">
+              <MdOutlineStar className="text-lg" />
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 tracking-tight">Testimonials</h3>
           </div>
-          <div className="order-1 md:order-2 w-10 h-10 md:w-16 md:h-16 bg-purple-50 text-[#8A56F6] rounded-xl md:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <MdOutlineStar className="text-xl md:text-3xl" />
-          </div>
+          <p className="text-2xl font-medium text-gray-900">{testimonialsCount}</p>
         </div>
       </div>
 
-      <div className="bg-white p-5 md:p-8 rounded-2xl md:rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.04)] border border-gray-100 mb-6">
-        
-        <div className="border-b border-gray-100 pb-3 mb-6 flex items-center justify-between">
-          <h2 className="text-lg md:text-xl font-bold text-gray-800">Quick Actions</h2>
+      {/* Quick Actions (Styled exactly like the 1st/2nd images) */}
+      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)] border border-gray-50">
+        <div className="border-b border-gray-200 pb-2 mb-6">
+          <h2 className="text-2xl font-bold text-[#1a202c]">Quick Actions</h2>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          <Link href="/secure_portal_99/blogs/new" className="group flex flex-col md:flex-row items-center justify-center md:justify-start bg-gradient-to-br from-[#F2852C] to-[#E56B09] p-4 md:p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-            <div className="bg-white/20 p-2 rounded-full mb-2 md:mb-0 md:mr-3">
-              <MdAddCircle className="text-white text-2xl" /> 
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <Link href="/secure_portal_99/blogs/new" className="bg-[#f97316] hover:bg-[#ea580c] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdAdd className="text-white text-3xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-xs md:text-sm text-center md:text-left">Add New Blog</span>
+            <span className="text-white font-medium text-lg">Add New Blog</span>
           </Link>
           
-          <Link href="/secure_portal_99/testimonials/new" className="group flex flex-col md:flex-row items-center justify-center md:justify-start bg-gradient-to-br from-[#8A56F6] to-[#6D5795] p-4 md:p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-            <div className="bg-white/20 p-2 rounded-full mb-2 md:mb-0 md:mr-3">
-              <MdAddCircle className="text-white text-2xl" /> 
+          <Link href="/secure_portal_99/testimonials/new" className="bg-[#8b5cf6] hover:bg-[#7c3aed] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdAdd className="text-white text-3xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-xs md:text-sm text-center md:text-left">Add Testimonial</span>
+            <span className="text-white font-medium text-lg">Add Testimonial</span>
           </Link>
           
-          <Link href="/secure_portal_99/applications" className="group flex flex-col md:flex-row items-center justify-center md:justify-start bg-gradient-to-br from-blue-500 to-blue-600 p-4 md:p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 col-span-2 md:col-span-1">
-            <div className="bg-white/20 p-2 rounded-full mb-2 md:mb-0 md:mr-3">
-              <MdFormatListBulleted className="text-white text-2xl" /> 
+          <Link href="/secure_portal_99/applications" className="bg-[#3b82f6] hover:bg-[#2563eb] transition-colors h-24 md:h-28 rounded-2xl flex flex-row items-center px-6 gap-4 group sm:col-span-2 md:col-span-1">
+            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+              <MdFormatListBulleted className="text-white text-2xl font-bold" /> 
             </div>
-            <span className="text-white font-medium text-xs md:text-sm text-center md:text-left">View Applications</span>
+            <span className="text-white font-medium text-lg">View Applications</span>
           </Link>
         </div>
       </div>
