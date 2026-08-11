@@ -37,41 +37,41 @@ export default async function ApplicationDetailsPage({ params }: { params: Promi
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
-        <div className="flex items-center">
-          <Link href="/secure_portal_99/applications" className="mr-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-500 hover:text-gray-800 transition">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+        <div className="flex items-center w-full lg:w-auto">
+          <Link href="/secure_portal_99/applications" className="mr-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-500 hover:text-gray-800 transition shrink-0">
             <i className="fas fa-arrow-left"></i>
           </Link>
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">Application #{app.id}</h1>
-            <p className="text-gray-500 mt-1">Submitted on {new Date(app.submission_date).toLocaleString()}</p>
+          <div className="flex-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 break-words">Application #{app.id}</h1>
+            <p className="text-sm md:text-base text-gray-500 mt-1">Submitted on {new Date(app.submission_date).toLocaleString()}</p>
           </div>
         </div>
         
-        <div className="flex items-center space-x-4">
+        <div className="w-full lg:w-auto">
           <StatusUpdater appId={app.id} currentStatus={app.status || "Pending"} />
         </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-[#6D5795] mb-4 border-b pb-2"><i className="fas fa-user mr-2"></i> Personal Details</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="First Name" value={app.name} />
             <Field label="Family Name" value={app.family_name} />
             <Field label="Email" value={app.email} />
             <Field label="Phone" value={app.phone} />
             <Field label="Date of Birth" value={app.date_Of_Birth ? new Date(app.date_Of_Birth).toLocaleDateString() : null} />
             <Field label="Nationality" value={app.nationality} />
-            <div className="col-span-2">
+            <div className="col-span-1 sm:col-span-2 break-words">
               <Field label="Address" value={app.address_with_postal_Code} />
             </div>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-[#6D5795] mb-4 border-b pb-2"><i className="fas fa-passport mr-2"></i> Passport Details</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Name in Passport" value={app.name_appears_in_passport} />
             <Field label="Passport Number" value={app.passport_Number} />
             <Field label="Issue Location" value={app.passport_issue_location} />
@@ -80,19 +80,19 @@ export default async function ApplicationDetailsPage({ params }: { params: Promi
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 md:col-span-2">
+        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 md:col-span-2">
           <h2 className="text-xl font-bold text-[#6D5795] mb-4 border-b pb-2"><i className="fas fa-graduation-cap mr-2"></i> Academic History</h2>
           
-          <div className="grid grid-cols-4 gap-4 mb-6">
-            <div className="col-span-4 font-bold text-gray-700 bg-gray-50 p-2 rounded">Undergraduate</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="col-span-1 sm:col-span-2 md:col-span-4 font-bold text-gray-700 bg-gray-50 p-2 rounded">Undergraduate</div>
             <Field label="Institution" value={app.under_Institution} />
             <Field label="Course" value={app.under_Course} />
             <Field label="Result" value={app.under_Result} />
             <Field label="Passing Year" value={app.under_End_Date ? new Date(app.under_End_Date).toLocaleDateString() : null} />
           </div>
 
-          <div className="grid grid-cols-4 gap-4">
-            <div className="col-span-4 font-bold text-gray-700 bg-gray-50 p-2 rounded">HSC/A-Levels</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="col-span-1 sm:col-span-2 md:col-span-4 font-bold text-gray-700 bg-gray-50 p-2 rounded">HSC/A-Levels</div>
             <Field label="Institution" value={app.HSC_Institution} />
             <Field label="Course" value={app.HSC_Course} />
             <Field label="Result" value={app.HSC_Result} />
@@ -100,13 +100,13 @@ export default async function ApplicationDetailsPage({ params }: { params: Promi
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-[#6D5795] mb-4 border-b pb-2"><i className="fas fa-language mr-2"></i> English Proficiency</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Field label="Test Type" value={app.IELTS_UKVI} />
             <Field label="Test Date" value={app.Date_of_test ? new Date(app.Date_of_test).toLocaleDateString() : null} />
             <Field label="Overall Score" value={app.Overall_Score} />
-            <div className="col-span-2 grid grid-cols-4 gap-2 mt-2">
+            <div className="col-span-1 sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
               <Field label="Reading" value={app.Reading} />
               <Field label="Writing" value={app.Writing} />
               <Field label="Listening" value={app.Listening} />
@@ -115,9 +115,9 @@ export default async function ApplicationDetailsPage({ params }: { params: Promi
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100">
           <h2 className="text-xl font-bold text-[#6D5795] mb-4 border-b pb-2"><i className="fas fa-file-pdf mr-2"></i> Documents</h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <FileLink label="Passport Copy" path={app.passport_all_used_copy} />
             <FileLink label="Certificates/Marksheets" path={app.all_official_certificates_marksheets} />
             <FileLink label="CV & References" path={app.cv_two_references} />
