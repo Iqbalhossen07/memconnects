@@ -23,7 +23,7 @@ export default async function AdminBlogsPage() {
         {blogs.map((blog) => (
           <div key={blog.id} className="bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 overflow-hidden flex flex-col transition">
             {blog.featured_image ? (
-              <img src={`/uploads/${blog.featured_image}`} alt={blog.title} className="w-full h-48 object-cover" />
+              <img src={`/${blog.featured_image}`} alt={blog.title} className="w-full h-48 object-cover" />
             ) : (
               <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-gray-400">
                 No Image
