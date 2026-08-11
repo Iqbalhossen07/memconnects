@@ -10,12 +10,14 @@ export default function Header() {
   const pathname = usePathname();
 
   const getLinkClass = (path: string) => {
-    const isActive = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    let isActive = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    if (path === "/services" && pathname.startsWith("/service-")) isActive = true;
     return `block py-3 px-6 text-base font-bold text-gray-700 hover:bg-orange-50 hover:text-[#F2852C] ${isActive ? "text-[#F2852C] bg-orange-50" : ""}`;
   };
 
   const getDesktopLinkClass = (path: string) => {
-    const isActive = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    let isActive = path === "/" ? pathname === "/" : pathname.startsWith(path);
+    if (path === "/services" && pathname.startsWith("/service-")) isActive = true;
     return `transition duration-300 font-semibold ${isActive ? "text-[#F2852C]" : "text-gray-700 hover:text-[#F2852C]"}`;
   };
 

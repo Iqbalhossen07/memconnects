@@ -35,7 +35,7 @@ export default function WelcomeBanner({ adminName }: { adminName: string }) {
         <p className="text-purple-100 text-sm md:text-lg">Here's what's happening with your applications and portal today.</p>
         {ukTime && (
           <div className="mt-4 inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 text-sm font-medium">
-            🇬🇧 UK Time: {ukTime}
+        Time: {ukTime}
           </div>
         )}
       </div>

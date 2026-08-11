@@ -35,7 +35,7 @@ export default function LivingGuidancePage() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <div className="prose max-w-none">
-                <img src="https://placehold.co/800x450/3B82F6/FFFFFF?text=UK+Living+Guidance" alt="Student settling in UK" className="rounded-xl shadow-lg mb-8" />
+                <img src="/img/study_living_guidance.png" alt="Student settling in UK" className="rounded-xl shadow-lg mb-8 w-full object-cover max-h-[450px]" />
                 <h2 className="text-3xl font-bold">Your Home Away from Home</h2>
                 <p>Moving to a new country for your studies is an exciting adventure, but it also comes with practical challenges. Finding accommodation, figuring out local transport, setting up a bank account, and understanding the healthcare system can be daunting tasks for international students.</p>
                 <p>At Mem Connects, our support extends far beyond securing your admission. We provide comprehensive living guidance to ensure your transition to life in the UK is seamless and stress-free. Our goal is to make sure you feel at home so you can focus entirely on your academic journey and personal growth.</p>
@@ -69,7 +69,7 @@ export default function LivingGuidancePage() {
 
             <aside className="lg:col-span-1">
               <div className="sticky top-24 space-y-8">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Service Highlights</h3>
                   <ul className="space-y-3 text-sm">
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Trusted Accommodation Partners</li>
@@ -79,7 +79,7 @@ export default function LivingGuidancePage() {
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Ongoing Pastoral Support</li>
                   </ul>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Frequently Asked Questions</h3>
                   <div className="space-y-4 text-sm">
                     <div>
@@ -93,8 +93,8 @@ export default function LivingGuidancePage() {
                   </div>
                 </div>
                 <div className="cta-gradient-bg text-white p-6 rounded-2xl text-center">
-                  <h3 className="font-bold text-xl mb-2">Preparing for Your UK Journey?</h3>
-                  <p className="text-sm opacity-90 mb-4">Let us help you plan a stress-free transition. Contact us for living guidance.</p>
+                  <h3 className="font-bold text-xl mb-2 text-white">Preparing for Your UK Journey?</h3>
+                  <p className="text-sm text-white/90 mb-4">Let us help you plan a stress-free transition. Contact us for living guidance.</p>
                   <Link href="/contact" className="bg-white text-orange-600 font-bold py-2 px-6 rounded-lg hover:bg-gray-200 transition-colors inline-block">Contact Us</Link>
                 </div>
               </div>

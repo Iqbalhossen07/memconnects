@@ -35,7 +35,7 @@ export default function UniversitySelectionPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <div className="prose max-w-none">
-                <img src="https://placehold.co/800x450/FFE8D9/F97316?text=Guidance+Session" alt="Counselor guiding a student" className="rounded-xl shadow-lg mb-8" />
+                <img src="/img/university_course_selection.png" alt="University Selection Counselor" className="rounded-xl shadow-lg mb-8 w-full object-cover max-h-[450px]" />
                 <h2 className="text-3xl font-bold">Why the Right Choice Matters</h2>
                 <p>Choosing the right university and course is the most critical decision in your academic career. It not only defines your next few years but also sets the foundation for your future profession. With thousands of courses available across hundreds of UK universities, making this choice can be overwhelming.</p>
                 <p>At Mem Connects, we simplify this process. Our experienced counselors provide personalized, data-driven guidance to help you make an informed decision that aligns perfectly with your academic background, interests, and career aspirations. We ensure that you don't just choose a university, but you choose the right future for yourself.</p>
@@ -69,7 +69,7 @@ export default function UniversitySelectionPage() {
 
             <aside className="lg:col-span-1">
               <div className="sticky top-24 space-y-8">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Service Highlights</h3>
                   <ul className="space-y-3 text-sm">
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Access to 100+ UK Universities</li>
@@ -78,7 +78,7 @@ export default function UniversitySelectionPage() {
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Up-to-date Scholarship Information</li>
                   </ul>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Frequently Asked Questions</h3>
                   <div className="space-y-4 text-sm">
                     <div>
@@ -92,8 +92,8 @@ export default function UniversitySelectionPage() {
                   </div>
                 </div>
                 <div className="cta-gradient-bg text-white p-6 rounded-2xl text-center">
-                  <h3 className="font-bold text-xl mb-2">Ready to Find Your Perfect University?</h3>
-                  <p className="text-sm opacity-90 mb-4">Let our experts guide you. Book a free consultation today!</p>
+                  <h3 className="font-bold text-xl mb-2 text-white">Ready to Find Your Perfect University?</h3>
+                  <p className="text-sm text-white/90 mb-4">Let our experts guide you. Book a free consultation today!</p>
                   <Link href="/contact" className="bg-white text-orange-600 font-bold py-2 px-6 rounded-lg hover:bg-gray-200 transition-colors inline-block">Book Now</Link>
                 </div>
               </div>

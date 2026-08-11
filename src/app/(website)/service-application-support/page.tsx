@@ -35,7 +35,7 @@ export default function ApplicationSupportPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2">
               <div className="prose max-w-none">
-                <img src="https://placehold.co/800x450/4ADE80/FFFFFF?text=Application+Review" alt="Consultant reviewing an application form with a student" className="rounded-xl shadow-lg mb-8" />
+                <img src="/img/application_support.png" alt="Consultant reviewing an application form with a student" className="rounded-xl shadow-lg mb-8 w-full object-cover max-h-[450px]" />
                 <h2 className="text-3xl font-bold">Maximizing Your Admission Success</h2>
                 <p>A well-prepared application is your gateway to your dream university. It's more than just filling out forms; it's about presenting your unique story, skills, and potential in the most compelling way. Our dedicated team at Mem Connects provides end-to-end support to ensure your application is flawless, professional, and submitted on time, significantly increasing your chances of acceptance.</p>
                 <p>We understand the nuances of the UK university admissions process and work closely with you to highlight the aspects of your profile that admissions tutors value most. From the initial draft of your personal statement to the final submission click, we've got you covered.</p>
@@ -69,7 +69,7 @@ export default function ApplicationSupportPage() {
 
             <aside className="lg:col-span-1">
               <div className="sticky top-24 space-y-8">
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Service Highlights</h3>
                   <ul className="space-y-3 text-sm">
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Expert Personal Statement Editing</li>
@@ -79,7 +79,7 @@ export default function ApplicationSupportPage() {
                     <li className="flex items-center"><i className="fas fa-check-circle text-green-500 mr-3"></i> Scholarship Application Support</li>
                   </ul>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-lg border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="font-bold text-xl mb-4">Frequently Asked Questions</h3>
                   <div className="space-y-4 text-sm">
                     <div>
@@ -93,8 +93,8 @@ export default function ApplicationSupportPage() {
                   </div>
                 </div>
                 <div className="cta-gradient-bg text-white p-6 rounded-2xl text-center">
-                  <h3 className="font-bold text-xl mb-2">Need Help With Your Application?</h3>
-                  <p className="text-sm opacity-90 mb-4">Let us make your application stand out. Get professional help today!</p>
+                  <h3 className="font-bold text-xl mb-2 text-white">Need Help With Your Application?</h3>
+                  <p className="text-sm text-white/90 mb-4">Let us make your application stand out. Get professional help today!</p>
                   <Link href="/contact" className="bg-white text-orange-600 font-bold py-2 px-6 rounded-lg hover:bg-gray-200 transition-colors inline-block">Apply Now</Link>
                 </div>
               </div>
