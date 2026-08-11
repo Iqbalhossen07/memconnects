@@ -41,7 +41,7 @@ export default async function AdminTestimonialsPage() {
             <div className="text-gray-600 text-sm flex-1 mb-4 italic bg-gray-50 p-4 rounded-lg border border-gray-100 relative overflow-hidden">
               <span className="absolute top-2 left-2 text-2xl text-gray-300 font-serif leading-none">"</span>
               <div className="pl-4 line-clamp-4 leading-relaxed">
-                {test.review_text.replace(/<[^>]+>/g, '')}
+                {test.review_text.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ')}
               </div>
             </div>
             

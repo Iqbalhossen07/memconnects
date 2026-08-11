@@ -39,8 +39,8 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
                     </div>
                     <i className="fas fa-quote-left text-purple-100 text-4xl absolute top-5 right-5 opacity-80"></i>
                     <div 
-                      className="text-gray-600 mb-5 italic text-sm leading-relaxed flex-grow"
-                      dangerouslySetInnerHTML={{ __html: `"${row.review_text}"` }}
+                      className="text-gray-600 mb-5 italic text-sm leading-relaxed flex-grow line-clamp-5"
+                      dangerouslySetInnerHTML={{ __html: `"${row.review_text.replace(/&nbsp;/g, ' ')}"` }}
                     />
                     <div className="mt-auto">
                       <div className="flex items-center">

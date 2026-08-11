@@ -16,7 +16,7 @@ export default function ViewTestimonialButton({ testimonial }: ViewTestimonialBu
       title: `<span class="text-2xl font-bold text-gray-800">${testimonial.student_name}</span>`,
       html: `
         <div class="text-left mt-4 p-4 bg-gray-50 rounded-xl text-gray-700 leading-relaxed text-sm max-h-[60vh] overflow-y-auto">
-          ${testimonial.review_text}
+          ${testimonial.review_text.replace(/&nbsp;/g, ' ')}
         </div>
       `,
       confirmButtonText: 'Close',
