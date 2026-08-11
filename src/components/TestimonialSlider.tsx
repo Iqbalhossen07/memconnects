@@ -25,8 +25,8 @@ export default function TestimonialSlider({ testimonials }: { testimonials: Test
 
   return (
     <div className="relative">
-      <div className="overflow-hidden">
-        <div ref={sliderRef} className="flex transition-transform duration-500 ease-in-out -mx-3 overflow-x-auto snap-x hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="overflow-hidden -my-4 py-4">
+        <div ref={sliderRef} className="flex transition-transform duration-500 ease-in-out -mx-3 px-3 py-4 overflow-x-auto snap-x hide-scrollbar" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {testimonials.length > 0 ? (
             testimonials.map((row) => {
               const initials = row.student_name ? row.student_name.substring(0, 2).toUpperCase() : 'A';
