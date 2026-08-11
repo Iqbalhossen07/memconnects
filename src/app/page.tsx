@@ -346,12 +346,17 @@ export default async function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {blogsData.length > 0 ? (
               blogsData.map((post) => {
-                const imagePath = post.image ? `/uploads/${post.image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
+                const imagePath = post.image ? `/uploads/blogs/${post.image}` : 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image';
                 return (
                   <div key={post.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
                     <div className="relative overflow-hidden h-48">
                       <Link href={`/blogs/${post.id}`}>
-                        <img src={imagePath} alt={post.name} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
+                        <img 
+                          src={imagePath} 
+                          alt={post.name} 
+                          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                          onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x400/f0f0f0/ccc?text=No+Image'; }}
+                        />
                       </Link>
                       <span className="absolute top-3 left-3 bg-[#6D5795] text-white text-xs font-semibold px-2.5 py-1 rounded-full">{post.category || 'Blog'}</span>
                     </div>
