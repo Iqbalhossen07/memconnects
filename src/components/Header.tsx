@@ -39,7 +39,7 @@ export default function Header() {
             className="text-sm font-semibold text-[#6D5795] border border-[#6D5795] px-5 py-2.5 rounded-lg hover:bg-[#6D5795] hover:text-white transition duration-300">
             Free Consultation
           </Link>
-          <Link href="/application"
+          <Link href="/application-form"
             className="text-sm font-semibold bg-[#6D5795] text-white px-5 py-2.5 rounded-lg hover:bg-[#59457A] transition duration-300 shadow-md hover:shadow-lg">
             Apply Now
           </Link>
@@ -64,7 +64,7 @@ export default function Header() {
             <Link href="/contact" className="w-full text-center block text-sm font-semibold text-[#6D5795] border border-[#6D5795] px-4 py-2.5 rounded-lg hover:bg-[#6D5795] hover:text-white transition duration-300">
               Free Consultation
             </Link>
-            <Link href="/application" className="w-full text-center block text-sm font-semibold bg-[#6D5795] text-white px-4 py-2.5 rounded-lg hover:bg-[#6D5795] transition duration-300">
+            <Link href="/application-form" className="w-full text-center block text-sm font-semibold bg-[#6D5795] text-white px-4 py-2.5 rounded-lg hover:bg-[#6D5795] transition duration-300">
               Apply Now
             </Link>
           </div>
