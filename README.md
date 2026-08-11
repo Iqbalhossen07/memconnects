@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mem Connects - Education Consultancy Platform
 
-## Getting Started
+A modern, fully-featured education consultancy platform built with Next.js, replacing the legacy PHP application. The platform provides a beautiful frontend for students and a comprehensive admin dashboard for managing applications, content, and communications.
 
-First, run the development server:
+## 🚀 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS
+- **Database**: SQLite (managed via Prisma ORM)
+- **Icons**: React Icons & FontAwesome
+- **Components**: SweetAlert2 (for modals & alerts), TinyMCE (for rich text editing)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Frontend (Student Portal)
+- **Responsive Modern UI**: Beautiful, mobile-friendly design with smooth animations.
+- **Dynamic Services**: Detailed pages for Application Support, Living Guidance, University Selection, and PhD Applications.
+- **Application System**: Multi-step, comprehensive application form for students to submit their details and documents safely.
+- **Blog & News**: Dynamic blog section with rich text content and thumbnail images.
+- **Testimonials**: Interactive slider showcasing student success stories.
+- **Contact System**: Secure contact form with Math Captcha protection to prevent spam.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Admin Dashboard (`/secure_portal_99`)
+- **Secure Authentication**: Protected admin portal requiring credentials to access.
+- **Applications Management**: Review student applications, download uploaded documents, and update application statuses (Pending, Approved, Rejected).
+- **Testimonials Management**: Add, edit, and delete student testimonials using a rich text editor. Testimonials sync directly with the frontend slider.
+- **Blog Management**: Full CMS for writing, editing, and publishing blog posts with image upload support.
+- **Messages**: Dedicated inbox to view and manage contact form submissions.
+- **Settings**: Manage global site settings and configurations.
 
-## Learn More
+## 🛠 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm, yarn, or pnpm
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository and navigate to the project directory:
+   ```bash
+   cd memconnects/next-app
+   ```
 
-## Deploy on Vercel
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Setup the database (Prisma):
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+## 📁 Project Structure
+
+- `/src/app/(website)`: Contains all public-facing pages (Home, About, Services, Blogs, etc.)
+- `/src/app/secure_portal_99`: Contains the Admin Dashboard and all its management routes.
+- `/src/components`: Reusable UI components (Header, Footer, Buttons, Modals, etc.)
+- `/src/app/actions`: Server actions handling database operations and form submissions.
+- `/public/uploads`: Directory where user-uploaded files (images, PDFs) are securely stored.
+
+## 🔒 Security
+- All sensitive admin actions are protected by Next.js Server Actions and session verification.
+- Forms are protected using custom Math Captchas to prevent bot submissions.
+- Secure HTML sanitization and entity parsing for rich text content.
