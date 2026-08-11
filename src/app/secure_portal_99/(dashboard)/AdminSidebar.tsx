@@ -37,9 +37,9 @@ export default function AdminSidebar() {
       
       <aside className={`
         fixed md:static inset-y-0 left-0 z-50 
-        w-64 sm:w-80 md:w-64 bg-[#2D233F] text-white flex-col shadow-xl 
+        w-full md:w-64 bg-[#2D233F] text-white flex flex-col shadow-xl 
         transform transition-transform duration-300 ease-in-out md:translate-x-0
-        ${isMobileMenuOpen ? "translate-x-0 flex" : "-translate-x-full md:flex"}
+        ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full hidden md:flex"}
       `}>
         <div className="p-6 border-b border-gray-700 flex justify-between items-center">
           <img src="/img/logo.png" alt="Mem Connects Logo" className="h-12 object-contain bg-white/90 p-2 rounded-xl shadow-inner" />
