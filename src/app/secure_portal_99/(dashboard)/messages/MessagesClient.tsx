@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { MdEmail, MdDelete, MdClose, MdVisibility, MdMarkEmailRead } from "react-icons/md";
-import { markMessageAsRead, deleteMessage } from "@/app/actions/messageActions";
-import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import Swal from "sweetalert2";
+import { MdOutlineInfo, MdCheckCircle, MdOutlineDelete, MdEmail } from "react-icons/md";
+import { deleteMessage, bulkDeleteMessages } from "@/app/actions/adminActions";
+import DeleteButton from "@/components/DeleteButton";
 
-type Message = {
+interface ContactMessage {
   id: number;
   sender_name: string;
   sender_email: string;
@@ -16,184 +17,189 @@ type Message = {
   message: string;
   submission_date: Date;
   is_read: boolean;
-};
+}
 
-export default function MessagesClient({ initialMessages }: { initialMessages: Message[] }) {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
-  const [isDeleting, setIsDeleting] = useState<number | null>(null);
-  const router = useRouter();
+interface Props {
+  initialMessages: ContactMessage[];
+}
 
-  const handleView = async (msg: Message) => {
-    setSelectedMessage(msg);
-    if (!msg.is_read) {
-      await markMessageAsRead(msg.id);
-      setMessages((prev) =>
-        prev.map((m) => (m.id === msg.id ? { ...m, is_read: true } : m))
-      );
-      router.refresh();
+export default function MessagesClient({ initialMessages }: Props) {
+  const [searchEmail, setSearchEmail] = useState("");
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [isPending, startTransition] = useTransition();
+
+  const filteredMessages = initialMessages.filter((msg) =>
+    msg.sender_email.toLowerCase().includes(searchEmail.toLowerCase())
+  );
+
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      setSelectedIds(filteredMessages.map((m) => m.id));
+    } else {
+      setSelectedIds([]);
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to delete this message?")) {
-      setIsDeleting(id);
-      await deleteMessage(id);
-      setMessages((prev) => prev.filter((m) => m.id !== id));
-      setIsDeleting(null);
-      if (selectedMessage?.id === id) {
-        setSelectedMessage(null);
+  const handleSelectOne = (id: number) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleBulkDelete = () => {
+    if (selectedIds.length === 0) return;
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `You are about to delete ${selectedIds.length} messages!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#F2852C',
+      cancelButtonColor: '#6D5795',
+      confirmButtonText: 'Yes, delete them!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        startTransition(async () => {
+          await bulkDeleteMessages(selectedIds);
+          setSelectedIds([]);
+          Swal.fire('Deleted!', 'The selected messages have been deleted.', 'success');
+        });
       }
-    }
+    });
+  };
+
+  const showMessageModal = (msg: ContactMessage) => {
+    Swal.fire({
+      title: msg.subject,
+      html: `
+        <div class="text-left">
+          <p class="mb-2"><strong>Name:</strong> ${msg.sender_name}</p>
+          <p class="mb-2"><strong>Email:</strong> ${msg.sender_email}</p>
+          ${msg.latest_degree ? `<p class="mb-2"><strong>Degree:</strong> ${msg.latest_degree}</p>` : ''}
+          ${msg.cgpa ? `<p class="mb-2"><strong>CGPA:</strong> ${msg.cgpa}</p>` : ''}
+          ${msg.interested_program ? `<p class="mb-2"><strong>Interested Program:</strong> ${msg.interested_program}</p>` : ''}
+          <p class="mt-4 mb-2"><strong>Message:</strong></p>
+          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 whitespace-pre-wrap">${msg.message}</div>
+          <p class="text-xs text-gray-500 mt-4 text-right">Received: ${new Date(msg.submission_date).toLocaleString()}</p>
+        </div>
+      `,
+      confirmButtonColor: '#6D5795',
+      confirmButtonText: 'Close',
+      width: '600px',
+    });
   };
 
   return (
     <div>
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="p-4 font-semibold text-gray-600 text-sm">Status</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">Sender</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">Subject</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm">Date</th>
-                <th className="p-4 font-semibold text-gray-600 text-sm text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {messages.length === 0 ? (
-                <tr>
-                  <td colSpan={5} className="p-8 text-center text-gray-500">
-                    No messages found.
-                  </td>
-                </tr>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex items-center gap-4 w-full sm:w-auto">
+          <div className="relative w-full sm:w-64">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i className="fas fa-search text-gray-400"></i>
+            </div>
+            <input
+              type="text"
+              placeholder="Search by email..."
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F2852C] outline-none transition"
+              value={searchEmail}
+              onChange={(e) => setSearchEmail(e.target.value)}
+            />
+          </div>
+          
+          {selectedIds.length > 0 && (
+            <button
+              onClick={handleBulkDelete}
+              disabled={isPending}
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition shrink-0 shadow-sm"
+            >
+              {isPending ? (
+                <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
               ) : (
-                messages.map((msg) => (
-                  <tr key={msg.id} className={`border-b border-gray-50 hover:bg-gray-50 transition-colors ${!msg.is_read ? 'bg-blue-50/30' : ''}`}>
-                    <td className="p-4">
-                      {!msg.is_read ? (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
-                          New
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
-                          <MdMarkEmailRead /> Read
-                        </span>
-                      )}
-                    </td>
-                    <td className="p-4">
-                      <div className="font-medium text-gray-900">{msg.sender_name}</div>
-                      <div className="text-sm text-gray-500">{msg.sender_email}</div>
-                    </td>
-                    <td className="p-4">
-                      <div className="text-gray-800 font-medium line-clamp-1">{msg.subject}</div>
-                    </td>
-                    <td className="p-4 text-sm text-gray-500 whitespace-nowrap">
-                      {new Date(msg.submission_date).toLocaleDateString()}
-                    </td>
-                    <td className="p-4 text-right">
-                      <div className="flex justify-end gap-2">
-                        <button
-                          onClick={() => handleView(msg)}
-                          className="p-2 text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
-                          title="View Message"
-                        >
-                          <MdVisibility size={18} />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(msg.id)}
-                          disabled={isDeleting === msg.id}
-                          className="p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors disabled:opacity-50"
-                          title="Delete Message"
-                        >
-                          <MdDelete size={18} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
+                <MdOutlineDelete size={20} />
               )}
-            </tbody>
-          </table>
+              <span className="hidden sm:inline">Delete Selected ({selectedIds.length})</span>
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Modal for viewing message */}
-      {selectedMessage && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <div className="p-5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-              <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                <MdEmail className="text-blue-500 text-xl" />
-                Message Details
-              </h3>
-              <button 
-                onClick={() => setSelectedMessage(null)}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
-              >
-                <MdClose size={20} />
-              </button>
-            </div>
-            
-            <div className="p-6 overflow-y-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-100">
-                <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">From</p>
-                  <p className="font-medium text-gray-900">{selectedMessage.sender_name}</p>
-                  <a href={`mailto:${selectedMessage.sender_email}`} className="text-sm text-blue-600 hover:underline">{selectedMessage.sender_email}</a>
+      {filteredMessages.length > 0 && (
+        <div className="mb-4 flex items-center gap-2 px-1">
+          <input 
+            type="checkbox" 
+            id="selectAll"
+            className="w-4 h-4 text-[#F2852C] rounded focus:ring-[#F2852C] border-gray-300"
+            checked={filteredMessages.length > 0 && selectedIds.length === filteredMessages.length}
+            onChange={handleSelectAll}
+          />
+          <label htmlFor="selectAll" className="text-sm font-medium text-gray-700 cursor-pointer">
+            Select All
+          </label>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredMessages.map((msg) => {
+          const isSelected = selectedIds.includes(msg.id);
+          return (
+            <div 
+              key={msg.id} 
+              className={`bg-white rounded-xl shadow-sm border ${isSelected ? 'border-[#F2852C] ring-1 ring-[#F2852C]/30' : 'border-gray-100'} p-5 flex flex-col relative transition-all duration-200 hover:shadow-md`}
+            >
+              <div className="absolute top-5 right-5">
+                <input 
+                  type="checkbox" 
+                  className="w-5 h-5 text-[#F2852C] rounded focus:ring-[#F2852C] border-gray-300"
+                  checked={isSelected}
+                  onChange={() => handleSelectOne(msg.id)}
+                />
+              </div>
+
+              <div className="flex items-start gap-3 mb-4 pr-8">
+                <div className="w-10 h-10 bg-purple-50 text-[#6D5795] rounded-full flex items-center justify-center shrink-0">
+                  <MdEmail size={20} />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Date</p>
-                  <p className="text-sm text-gray-800">{new Date(selectedMessage.submission_date).toLocaleString()}</p>
-                </div>
-                <div className="md:col-span-2 mt-2">
-                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Subject</p>
-                  <p className="font-medium text-gray-900 bg-gray-50 p-3 rounded-lg border border-gray-100">{selectedMessage.subject}</p>
+                  <h3 className="font-bold text-gray-800 line-clamp-1">{msg.sender_name}</h3>
+                  <a href={`mailto:${msg.sender_email}`} className="text-sm text-blue-600 hover:underline line-clamp-1">{msg.sender_email}</a>
                 </div>
               </div>
 
-              {(selectedMessage.latest_degree || selectedMessage.interested_program) && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 p-4 bg-purple-50/50 rounded-xl border border-purple-100/50">
-                  {selectedMessage.latest_degree && (
-                    <div>
-                      <p className="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-1">Latest Degree</p>
-                      <p className="font-medium text-purple-900 text-sm">{selectedMessage.latest_degree} {selectedMessage.cgpa ? `(CGPA: ${selectedMessage.cgpa})` : ''}</p>
-                    </div>
-                  )}
-                  {selectedMessage.interested_program && (
-                    <div>
-                      <p className="text-xs font-semibold text-purple-400 uppercase tracking-wider mb-1">Interested In</p>
-                      <p className="font-medium text-purple-900 text-sm">{selectedMessage.interested_program}</p>
-                    </div>
-                  )}
-                </div>
-              )}
+              <div className="mb-4 flex-1">
+                <h4 className="font-semibold text-gray-700 mb-1 line-clamp-1">{msg.subject}</h4>
+                <p className="text-gray-500 text-sm line-clamp-2">{msg.message}</p>
+              </div>
 
-              <div>
-                <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Message Body</p>
-                <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 text-gray-700 whitespace-pre-wrap leading-relaxed text-sm">
-                  {selectedMessage.message}
-                </div>
+              <div className="text-xs text-gray-400 mb-4 flex items-center gap-1">
+                <i className="far fa-clock"></i>
+                {new Date(msg.submission_date).toLocaleString()}
+              </div>
+
+              <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center gap-2">
+                <button 
+                  onClick={() => showMessageModal(msg)}
+                  className="flex items-center gap-1.5 px-4 py-2 bg-white text-[#00a86b] border border-gray-100 hover:border-[#00a86b]/30 hover:bg-[#00a86b]/5 rounded-xl shadow-sm transition font-medium text-sm" 
+                  title="View Message"
+                >
+                  <MdOutlineInfo size={18} />
+                  <span>View</span>
+                </button>
+                
+                <DeleteButton 
+                  onDelete={async () => {
+                    await deleteMessage(msg.id);
+                  }} 
+                  itemType="message"
+                />
               </div>
             </div>
+          );
+        })}
+      </div>
 
-            <div className="p-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
-              <button 
-                onClick={() => handleDelete(selectedMessage.id)}
-                className="px-4 py-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors font-medium text-sm flex items-center gap-2"
-              >
-                <MdDelete size={16} /> Delete
-              </button>
-              <button 
-                onClick={() => setSelectedMessage(null)}
-                className="px-5 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg transition-colors font-medium text-sm"
-              >
-                Close
-              </button>
-            </div>
-          </div>
+      {filteredMessages.length === 0 && (
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center text-gray-500">
+          {initialMessages.length === 0 ? "No messages found." : "No messages match your search."}
         </div>
       )}
     </div>

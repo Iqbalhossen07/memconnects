@@ -123,3 +123,19 @@ export async function deleteTestimonial(id: number) {
   revalidatePath("/secure_portal_99/testimonials");
   revalidatePath("/");
 }
+
+export async function deleteMessage(id: number) {
+  await prisma.contact_messages.delete({
+    where: { id },
+  });
+  revalidatePath("/secure_portal_99/messages");
+}
+
+export async function bulkDeleteMessages(ids: number[]) {
+  await prisma.contact_messages.deleteMany({
+    where: {
+      id: { in: ids },
+    },
+  });
+  revalidatePath("/secure_portal_99/messages");
+}

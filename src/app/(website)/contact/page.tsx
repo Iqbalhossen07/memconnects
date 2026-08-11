@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { useState } from "react";
 import { submitContactForm } from "@/actions/contactAction";
+import MathCaptcha from "@/components/MathCaptcha";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!isCaptchaValid) return;
+    
     setIsSubmitting(true);
     setStatus(null);
 
@@ -116,8 +120,10 @@ export default function ContactPage() {
                   <textarea name="contact_message" id="contact_message" rows={5} className="form-input-premium" required></textarea>
                 </div>
 
+                <MathCaptcha onVerify={setIsCaptchaValid} />
+
                 <div>
-                  <button type="submit" disabled={isSubmitting} className="w-full bg-[#6D5795] text-white font-bold py-3.5 px-6 rounded-lg hover:bg-[#59457A] transition-all duration-300 transform hover:scale-105 disabled:opacity-50">
+                  <button type="submit" disabled={isSubmitting || !isCaptchaValid} className="w-full bg-[#6D5795] text-white font-bold py-3.5 px-6 rounded-lg hover:bg-[#59457A] transition-all duration-300 transform hover:scale-105 disabled:opacity-50">
                     {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </div>

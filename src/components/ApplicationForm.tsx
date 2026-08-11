@@ -11,13 +11,17 @@ import {
   MdWork, 
   MdFolder
 } from "react-icons/md";
+import MathCaptcha from "./MathCaptcha";
 
 export default function ApplicationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!isCaptchaValid) return;
+    
     setIsSubmitting(true);
     setResult(null);
 
@@ -329,11 +333,13 @@ export default function ApplicationForm() {
           </div>
         </div>
 
+        <MathCaptcha onVerify={setIsCaptchaValid} />
+
         <div className="pt-8 border-t border-gray-100">
           <button 
             type="submit" 
-            disabled={isSubmitting}
-            className={`w-full md:w-auto px-10 py-4 rounded-full font-bold text-lg text-white shadow-lg transition-all ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#F2852C] hover:bg-[#D9721B] hover:shadow-xl transform hover:-translate-y-1'}`}
+            disabled={isSubmitting || !isCaptchaValid}
+            className={`w-full md:w-auto px-10 py-4 rounded-full font-bold text-lg text-white shadow-lg transition-all ${(isSubmitting || !isCaptchaValid) ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#F2852C] hover:bg-[#D9721B] hover:shadow-xl transform hover:-translate-y-1'}`}
           >
             {isSubmitting ? (
               <span className="flex items-center justify-center">
