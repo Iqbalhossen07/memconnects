@@ -13,6 +13,32 @@ import {
 } from "react-icons/md";
 import MathCaptcha from "./MathCaptcha";
 
+const InputField = ({ label, name, type = "text", required = false, placeholder = "" }: any) => (
+  <div className="mb-4">
+    <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
+    <input type={type} name={name} required={required} placeholder={placeholder} className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] focus:border-transparent outline-none transition-all bg-white" />
+  </div>
+);
+
+const FileField = ({ label, name, required = false }: any) => (
+  <div className="mb-4">
+    <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
+    <input type="file" name={name} required={required} className="w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#F2852C] hover:file:bg-orange-100 transition-all cursor-pointer border border-gray-200 rounded-xl shadow-sm focus:shadow-md bg-white" />
+  </div>
+);
+
+const SectionTitle = ({ title, icon }: { title: string, icon: React.ReactNode }) => (
+  <div className="mb-6 mt-12 first:mt-0">
+    <div className="flex items-center gap-3 mb-4">
+      <div className="text-[#f97316] text-2xl md:text-3xl shrink-0">
+        {icon}
+      </div>
+      <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight">{title}</h2>
+    </div>
+    <div className="h-px bg-gray-200 w-full"></div>
+  </div>
+);
+
 export default function ApplicationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -39,32 +65,6 @@ export default function ApplicationForm() {
       setIsSubmitting(false);
     }
   }
-
-  const InputField = ({ label, name, type = "text", required = false, placeholder = "" }: any) => (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
-      <input type={type} name={name} required={required} placeholder={placeholder} className="w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm focus:shadow-md focus:ring-2 focus:ring-[#F2852C] focus:border-transparent outline-none transition-all bg-white" />
-    </div>
-  );
-
-  const FileField = ({ label, name, required = false }: any) => (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">{label} {required && <span className="text-red-500">*</span>}</label>
-      <input type="file" name={name} required={required} className="w-full text-sm text-gray-500 file:mr-4 file:py-3 file:px-5 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#F2852C] hover:file:bg-orange-100 transition-all cursor-pointer border border-gray-200 rounded-xl shadow-sm focus:shadow-md bg-white" />
-    </div>
-  );
-
-  const SectionTitle = ({ title, icon }: { title: string, icon: React.ReactNode }) => (
-    <div className="mb-6 mt-12 first:mt-0">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="text-[#f97316] text-2xl md:text-3xl shrink-0">
-          {icon}
-        </div>
-        <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight">{title}</h2>
-      </div>
-      <div className="h-px bg-gray-200 w-full"></div>
-    </div>
-  );
 
   if (result?.success) {
     return (
