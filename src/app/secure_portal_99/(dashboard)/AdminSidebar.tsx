@@ -22,6 +22,7 @@ export default function AdminSidebar() {
     { href: "/secure_portal_99", label: "Dashboard", icon: <MdDashboard size={24} /> },
     { href: "/secure_portal_99/applications", label: "Applications", icon: <MdAssignment size={24} /> },
     { href: "/secure_portal_99/blogs", label: "Blogs", icon: <MdArticle size={24} /> },
+    { href: "/secure_portal_99/messages", label: "Messages", icon: <MdEmail size={24} /> },
     { href: "/secure_portal_99/testimonials", label: "Testimonials", icon: <MdStar size={24} /> },
     { href: "/secure_portal_99/settings", label: "Settings", icon: <MdSettings size={24} /> },
   ];
