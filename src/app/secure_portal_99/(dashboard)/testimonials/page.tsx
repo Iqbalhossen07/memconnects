@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { deleteTestimonial } from "@/app/actions/adminActions";
 import DeleteButton from "@/components/DeleteButton";
+import ViewTestimonialButton from "@/components/ViewTestimonialButton";
 import { MdAdd, MdStar, MdPerson, MdDateRange } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 
@@ -43,6 +44,7 @@ export default async function AdminTestimonialsPage() {
             </div>
             
             <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center gap-2">
+              <ViewTestimonialButton testimonial={test} />
               <Link 
                 href={`/secure_portal_99/testimonials/${test.id}/edit`} 
                 className="flex items-center gap-1.5 px-4 py-2 bg-white text-blue-500 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 rounded-xl shadow-sm transition font-medium text-sm" 

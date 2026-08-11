@@ -50,10 +50,9 @@ export default async function AdminBlogsPage() {
               
               <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center gap-2">
                 <Link 
-                  href={`/blogs/${blog.id}`} 
-                  target="_blank"
+                  href={`/secure_portal_99/blogs/${blog.id}`} 
                   className="flex items-center gap-1.5 px-4 py-2 bg-white text-[#00a86b] border border-gray-100 hover:border-[#00a86b]/30 hover:bg-[#00a86b]/5 rounded-xl shadow-sm transition font-medium text-sm" 
-                  title="View on Website"
+                  title="View Blog Details"
                 >
                   <MdOutlineInfo size={18} />
                   <span>View</span>
