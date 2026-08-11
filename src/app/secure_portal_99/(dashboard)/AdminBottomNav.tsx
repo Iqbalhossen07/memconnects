@@ -6,7 +6,8 @@ import {
   MdDashboard, 
   MdArticle, 
   MdStar, 
-  MdAssignment, 
+  MdAssignment,
+  MdEmail, 
   MdMenu 
 } from "react-icons/md";
 import { useAdmin } from "./AdminContext";
@@ -34,6 +35,14 @@ export default function AdminBottomNav() {
       inactiveBg: "bg-pink-50 text-pink-500"
     },
     { 
+      href: "/secure_portal_99/messages", 
+      label: "Messages", 
+      icon: <MdEmail size={22} />,
+      color: "purple",
+      activeBg: "bg-purple-500 text-white",
+      inactiveBg: "bg-purple-50 text-purple-500"
+    },
+    { 
       href: "/secure_portal_99/blogs", 
       label: "Blogs", 
       icon: <MdArticle size={22} />,
@@ -52,8 +61,8 @@ export default function AdminBottomNav() {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-3 py-2 pb-safe z-30 shadow-[0_-4px_15px_-5px_rgba(0,0,0,0.05)]">
-      <div className="flex justify-between items-center max-w-md mx-auto">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-3 py-2 pb-safe z-30 shadow-[0_-4px_15px_-5px_rgba(0,0,0,0.05)] overflow-x-auto">
+      <div className="flex justify-between items-center max-w-md mx-auto gap-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
@@ -73,7 +82,7 @@ export default function AdminBottomNav() {
         {/* Menu Hamburger Button */}
         <button 
           onClick={() => setIsMobileMenuOpen(true)}
-          className="flex flex-col items-center justify-center w-[4.5rem] h-14 rounded-md bg-white text-gray-500 border border-gray-100 shadow-sm transition-all duration-200 hover:bg-gray-50 active:bg-gray-100"
+          className="flex flex-col items-center justify-center w-[4.5rem] h-14 rounded-md bg-white text-gray-500 border border-gray-100 shadow-sm transition-all duration-200 hover:bg-gray-50 active:bg-gray-100 shrink-0"
         >
           <div className="mb-1">
             <MdMenu size={26} />

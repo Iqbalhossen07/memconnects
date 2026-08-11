@@ -7,6 +7,7 @@ import {
   MdArticle, 
   MdStar, 
   MdAssignment, 
+  MdEmail,
   MdSettings,
   MdClose
 } from "react-icons/md";

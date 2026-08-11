@@ -1,6 +1,7 @@
 "use server";
 
 import nodemailer from "nodemailer";
+import prisma from "@/lib/prisma";
 
 export async function submitContactForm(formData: FormData) {
   // Anti-bot honeypot check
@@ -22,6 +23,19 @@ export async function submitContactForm(formData: FormData) {
   }
 
   try {
+    // Save to Database
+    await prisma.contact_messages.create({
+      data: {
+        sender_name: name,
+        sender_email: email,
+        subject: subject,
+        latest_degree: latestDegree || null,
+        cgpa: cgpa || null,
+        interested_program: interestedProgram || null,
+        message: message,
+      }
+    });
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || "465"),

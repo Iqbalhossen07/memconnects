@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import fs from "fs/promises";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
+import nodemailer from "nodemailer";
 
 // Helper to save uploaded file
 async function saveFile(file: File | null, folder: string): Promise<string | null> {
@@ -154,6 +155,42 @@ export async function submitApplication(prevState: any, formData: FormData) {
     await prisma.applications.create({
       data: data
     });
+
+    // Send Email Notification
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT || "465"),
+        secure: true,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      const mailOptions = {
+        from: `"${data.name || 'Applicant'} ${data.family_name || ''}" <${process.env.SMTP_USER}>`,
+        replyTo: data.email,
+        to: process.env.SMTP_USER,
+        subject: `New Application Received: ${data.name || ''} ${data.family_name || ''}`,
+        html: `
+          <h2>New Application Submission</h2>
+          <p><strong>Name:</strong> ${data.name || ''} ${data.family_name || ''}</p>
+          <p><strong>Email:</strong> ${data.email || ''}</p>
+          <p><strong>Phone:</strong> ${data.phone || ''}</p>
+          <p><strong>Nationality:</strong> ${data.nationality || ''}</p>
+          <p><strong>Interested Level:</strong> ${data.Academic_interests_Level_of_study || ''}</p>
+          <p><strong>Programme:</strong> ${data.Programme || ''}</p>
+          <br/>
+          <p>Please log in to the admin panel to view the complete application and attached documents.</p>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error("Error sending application email:", emailError);
+      // We don't want to fail the submission if email fails, so just log it.
+    }
 
     return { success: true, message: "Application submitted successfully!" };
   } catch (error: any) {
