@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { deleteBlog } from "@/app/actions/adminActions";
 import DeleteButton from "@/components/DeleteButton";
-import { MdAdd, MdEdit, MdCategory, MdPerson, MdDateRange, MdRemoveRedEye } from "react-icons/md";
+import { MdAdd, MdCategory, MdPerson, MdDateRange } from "react-icons/md";
+import { MdOutlineEdit, MdOutlineInfo } from "react-icons/md";
 
 export default async function AdminBlogsPage() {
   const blogs = await prisma.blogs.findMany({
@@ -47,21 +48,23 @@ export default async function AdminBlogsPage() {
                 </div>
               </div>
               
-              <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center space-x-2">
+              <div className="border-t border-gray-100 pt-4 mt-auto flex justify-end items-center gap-2">
                 <Link 
                   href={`/blogs/${blog.id}`} 
                   target="_blank"
-                  className="p-2 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-full transition" 
+                  className="flex items-center gap-1.5 px-4 py-2 bg-white text-[#00a86b] border border-gray-100 hover:border-[#00a86b]/30 hover:bg-[#00a86b]/5 rounded-xl shadow-sm transition font-medium text-sm" 
                   title="View on Website"
                 >
-                  <MdEdit size={20} />
+                  <MdOutlineInfo size={18} />
+                  <span>View</span>
                 </Link>
                 <Link 
                   href={`/secure_portal_99/blogs/${blog.id}/edit`} 
-                  className="p-2 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-full transition" 
+                  className="flex items-center gap-1.5 px-4 py-2 bg-white text-blue-500 border border-gray-100 hover:border-blue-200 hover:bg-blue-50 rounded-xl shadow-sm transition font-medium text-sm" 
                   title="Edit Blog"
                 >
-                  <MdEdit size={20} />
+                  <MdOutlineEdit size={18} />
+                  <span>Edit</span>
                 </Link>
                 <DeleteButton 
                   onDelete={async () => {

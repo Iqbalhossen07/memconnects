@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 import Swal from "sweetalert2";
-import { MdDelete } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 
 interface DeleteButtonProps {
   onDelete: () => Promise<void>;
@@ -10,7 +10,7 @@ interface DeleteButtonProps {
   className?: string;
 }
 
-export default function DeleteButton({ onDelete, itemType = "item", className = "text-red-500 hover:text-red-700 p-2 rounded-full hover:bg-red-50 transition" }: DeleteButtonProps) {
+export default function DeleteButton({ onDelete, itemType = "item", className = "flex items-center gap-1.5 px-4 py-2 bg-white text-red-500 border border-gray-100 hover:border-red-200 hover:bg-red-50 rounded-xl shadow-sm transition font-medium text-sm" }: DeleteButtonProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleDelete = () => {
@@ -45,9 +45,15 @@ export default function DeleteButton({ onDelete, itemType = "item", className = 
       title="Delete"
     >
       {isPending ? (
-        <span className="animate-spin inline-block w-5 h-5 border-2 border-current border-t-transparent text-red-500 rounded-full" />
+        <>
+          <span className="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent text-red-500 rounded-full" />
+          <span>Deleting...</span>
+        </>
       ) : (
-        <MdDelete size={20} />
+        <>
+          <MdOutlineDelete size={18} />
+          <span>Delete</span>
+        </>
       )}
     </button>
   );
