@@ -3,14 +3,16 @@ import { getSession } from "@/lib/auth";
 import AdminSidebar from "./AdminSidebar";
 import AdminBottomNav from "./AdminBottomNav";
 import { MdAccountCircle } from "react-icons/md";
+import { AdminProvider } from "./AdminContext";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
 
   return (
-    <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
-      
-      {/* Desktop Sidebar */}
+    <AdminProvider>
+      <div className="flex h-screen bg-gray-50 font-sans overflow-hidden">
+        
+        {/* Desktop Sidebar */}
       <AdminSidebar />
 
       {/* Main Content Area */}
@@ -46,6 +48,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       {/* Mobile Bottom Navigation */}
       <AdminBottomNav />
 
-    </div>
+      </div>
+    </AdminProvider>
   );
 }
