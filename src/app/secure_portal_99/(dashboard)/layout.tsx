@@ -21,7 +21,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         {/* Topbar */}
         <header className="bg-white shadow-sm h-16 flex-shrink-0 flex items-center justify-between px-4 md:px-8 z-10">
           <h2 className="text-xl font-bold text-gray-800 flex items-center">
-            <span className="hidden md:inline">Secure Portal</span>
             <img src="/img/logo.png" alt="Mem Connects Logo" className="h-10 md:hidden object-contain" />
           </h2>
           

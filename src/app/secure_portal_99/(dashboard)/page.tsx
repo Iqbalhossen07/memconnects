@@ -16,6 +16,16 @@ export default async function AdminDashboard() {
   return (
     <div className="max-w-7xl mx-auto space-y-8">
       
+      {/* Welcome Banner */}
+      <div className="bg-gradient-to-r from-[#6D5795] to-[#8A56F6] rounded-2xl p-6 md:p-10 shadow-lg mb-8 md:mb-10 text-white flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="relative z-10 text-center md:text-left">
+          <h1 className="text-3xl md:text-4xl font-extrabold mb-2 text-white">Welcome Back, Admin! 👋</h1>
+          <p className="text-purple-100 text-sm md:text-lg">Here's what's happening with your applications and portal today.</p>
+        </div>
+      </div>
+
       {/* Overview Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8 md:mb-10">
         <div className="bg-white p-4 md:p-6 rounded-md md:rounded-md shadow-[0_4px_20px_rgb(0,0,0,0.04)] md:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 flex flex-col md:flex-row md:items-center justify-between group hover:-translate-y-1 transition-transform duration-300">
