@@ -82,7 +82,7 @@ export default async function BlogDetails({ params }: { params: Promise<{ id: st
 
             <aside className="lg:col-span-1">
               <div className="sticky top-24">
-                <div className="bg-gray-50 p-6 rounded-2xl border">
+                <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-100">
                   <h3 className="text-xl font-bold mb-4">Recent Posts</h3>
                   <div className="space-y-4">
                     {recentPosts.map(recent => {
