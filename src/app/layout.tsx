@@ -34,11 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} ${roboto.variable} scroll-smooth`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${roboto.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
-      <body className="bg-white text-gray-800 antialiased min-h-screen flex flex-col font-sans">
+      <body className="bg-white text-gray-800 antialiased min-h-screen flex flex-col font-sans" suppressHydrationWarning>
         {children}
       </body>
     </html>
