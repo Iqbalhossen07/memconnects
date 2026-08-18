@@ -136,7 +136,7 @@ export default function AboutPage() {
           <span className="inline-block bg-[#F2852C]/10 text-[#F2852C] text-sm font-semibold px-4 py-1.5 rounded-full mb-4">Don't Wait, Act Now</span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight max-w-3xl">Ready to Take the First Step Towards Your Future?</h2>
           <p className="mt-4 text-lg text-gray-300 max-w-2xl">Our expert counselors are here to guide you. Book a free, no-obligation consultation today and let's map out your journey to success.</p>
-          <Link href="/application" className="mt-8 bg-[#F2852C] text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-[#D9721B] transition-transform duration-300 transform hover:scale-105 shadow-2xl shadow-[#F2852C]/20">Book a Free Consultation</Link>
+          <Link href="/application-form" className="mt-8 bg-[#F2852C] text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-[#D9721B] transition-transform duration-300 transform hover:scale-105 shadow-2xl shadow-[#F2852C]/20">Book a Free Consultation</Link>
         </div>
       </section>
     </main>

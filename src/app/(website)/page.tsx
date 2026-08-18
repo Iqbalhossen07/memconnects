@@ -60,7 +60,7 @@ export default async function Home() {
               FEATURES
             </span>
             <h2 className="text-4xl font-bold text-gray-800">
-              <span className="feature-gradient-text">End-to-End</span> Support
+              <span className="gradient-text">End-to-End</span> Support
             </h2>
             <p className="mt-3 text-base text-gray-600 max-w-2xl mx-auto">
               From initial thoughts to your first day at university and beyond, we offer a complete range of services to ensure a smooth journey.
